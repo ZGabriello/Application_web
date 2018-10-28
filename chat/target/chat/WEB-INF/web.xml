@@ -10,11 +10,11 @@
     version="3.0">
   <display-name>Archetype Created Web Application</display-name>
   <servlet>
-    <servlet-name>init</servlet-name>
-    <servlet-class>fr.univlyon1.m1if.m1if03.init</servlet-class>
+    <servlet-name>Init</servlet-name>
+    <servlet-class>fr.univlyon1.m1if.m1if03.Init</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>init</servlet-name>
+    <servlet-name>Init</servlet-name>
     <url-pattern>/webapp</url-pattern>
   </servlet-mapping>
 </web-app>
