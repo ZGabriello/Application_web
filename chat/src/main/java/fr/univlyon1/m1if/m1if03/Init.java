@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.annotation.WebServlet;
 
-@WebServlet("/Init")
+@WebServlet("/Init") 
 public class Init extends HttpServlet {
     public void init(ServletConfig config) throws ServletException {
 
