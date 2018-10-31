@@ -28,19 +28,11 @@
 <%
 
     if (request.getMethod().equals("POST")) {
-        if((String)request.getAttribute("message") != null) {
-            addMessage((String) request.getAttribute("message"), (String) session.getAttribute("pseudo"));
+        if((String)request.getParameter("message") != null) {
+            addMessage((String) request.getParameter("message"), (String) session.getAttribute("pseudo"));
         }
     }
 
-    String texte = (String)request.getParameter("message" );
-    String auteur = (String)session.getAttribute("pseudo") ;
-
-    if (texte != null) {
-
-        Message message = new Message(auteur, texte);
-        messages.add(message);
-    }
 %>
 <table>
     <%
