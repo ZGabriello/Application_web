@@ -8,6 +8,18 @@
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%!
+    public List<Message> messages = new ArrayList<Message>();
+
+    void addMessage(String message, String author) {
+
+        if (author != null) {
+            messages.add(new Message(author,message));
+        }
+    }
+
+%>
 <html>
 <head>
     <title>Title</title>
@@ -15,19 +27,28 @@
 <body>
 <%
 
-    List<Message> messages = new List<Message>();
-
-    //HttpSession session = request.getSession(true);
+    if (request.getMethod().equals("POST")) {
+        if((String)request.getAttribute("message") != null) {
+            addMessage((String) request.getAttribute("message"), (String) session.getAttribute("pseudo"));
+        }
+    }
 
     String texte = (String)request.getParameter("message" );
     String auteur = (String)session.getAttribute("pseudo") ;
 
-    Message message = new Message(auteur, texte);
-    messages.add(message);
+    if (texte != null) {
+
+        Message message = new Message(auteur, texte);
+        messages.add(message);
+    }
 %>
-<c:forEach var="message" items="${messages}">
-    <p>Auteur :  <%= message.getPseudo() %></p>
-    <p>Message :  <%= message.getTexte %></p> <br>
-</c:forEach>
+<table>
+    <%
+    for (Message msg : messages) {
+        %>
+            <tr><td><%= msg.getPseudo() %> : <%= msg.getTexte() %> </td></tr>
+        <%
+    } %>
+</table>
 </body>
 </html>

@@ -1,9 +1,11 @@
 package fr.univlyon1.m1if.m1if03;
-import javax.servlet.*;
+
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.annotation.WebServlet;
 
 @WebServlet("/Init")
 public class Init extends HttpServlet {
