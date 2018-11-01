@@ -20,6 +20,7 @@ public class Init extends HttpServlet {
         res.setContentType("text/html");
         PrintWriter pw = res.getWriter();
 
+        //redirection
         res.sendRedirect("index.html");
 
         pw.close();
@@ -34,9 +35,15 @@ public class Init extends HttpServlet {
             // Ecrit la reponse
             PrintWriter out = response.getWriter();
 
+            //on récupère le pseudo envoyé par la requete POST
             String pseudo = request.getParameter("pseudo");
+            String salon = request.getParameter("salon");
 
+
+            //on ajoute l'attribut pseudo et sa valeur à la session actuelle
             session.setAttribute("pseudo", pseudo);
+            session.setAttribute("salon", salon);
+
             response.sendRedirect("interface.html");
         } catch (Exception e) {
             response.sendRedirect("index.html");
