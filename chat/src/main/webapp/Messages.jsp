@@ -8,7 +8,7 @@
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<META HTTP-EQUIV=Refresh CONTENT="5">
 <%!
     public List<Message> messages = new ArrayList<Message>();
 
