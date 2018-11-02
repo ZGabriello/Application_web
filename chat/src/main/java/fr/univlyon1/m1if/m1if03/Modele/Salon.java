@@ -1,4 +1,4 @@
-package fr.univlyon1.m1if.m1if03;
+package fr.univlyon1.m1if.m1if03.Modele;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +27,10 @@ public class Salon {
 
     public void setMessages(List<Message> messages) {
         this.messages = messages;
+    }
+
+    public void addMessage(Message message) {
+        this.getMessages().add(message);
     }
 
 
