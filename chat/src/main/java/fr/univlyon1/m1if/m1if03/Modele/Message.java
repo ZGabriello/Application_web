@@ -1,7 +1,7 @@
 package fr.univlyon1.m1if.m1if03.Modele;
 
 public class Message {
-    private final String pseudo;
+    private String pseudo;
     private String texte;
 
     public Message(String pseudo, String texte) {
