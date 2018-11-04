@@ -42,8 +42,9 @@ public class Init extends HttpServlet {
             //on ajoute l'attribut pseudo et sa valeur à la session actuelle
             session.setAttribute("pseudo", pseudo);
             session.setAttribute("salon", salon);
-
             response.sendRedirect("interface.html");
+            //this.getServletContext().getRequestDispatcher( "/interface.html" ).forward( request, response );
+
         } catch (Exception e) {
             response.sendRedirect("index.html");
         }

@@ -19,12 +19,30 @@
   </servlet-mapping>
 
   <servlet>
-    <servlet-name>Messages</servlet-name>
-    <jsp-file>/Messages.jsp</jsp-file>
-  </servlet>
+  <servlet-name>Messages</servlet-name>
+  <jsp-file>/Messages.jsp</jsp-file>
+</servlet>
   <servlet-mapping>
     <servlet-name>Messages</servlet-name>
     <url-pattern>/messages</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>Affichage</servlet-name>
+    <jsp-file>/Affichage.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Affichage</servlet-name>
+    <url-pattern>/affichage</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>Stockage</servlet-name>
+    <jsp-file>/Stockage.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Stockage</servlet-name>
+    <url-pattern>/stockage</url-pattern>
   </servlet-mapping>
 
   <servlet>

@@ -4,9 +4,7 @@
 <%@ page import="fr.univlyon1.m1if.m1if03.Modele.Salon" %>
 <%@ page import="static javax.servlet.http.HttpServletResponse.SC_FOUND" %>
 <%@ page import="static javax.servlet.http.HttpServletResponse.SC_NOT_MODIFIED" %>
-<jsp:useBean id="messages" class="fr.univlyon1.m1if.m1if03.Modele.GestionMessages" scope="session">
-    <jsp:setProperty name="messages" property="servletContext" value="<%=request.getServletContext()%>"/>
-</jsp:useBean>
+<jsp:useBean id="messages" class="fr.univlyon1.m1if.m1if03.Modele.GestionMessages" scope="session"/>
 <%--
   Created by IntelliJ IDEA.
   User: Elo
@@ -24,8 +22,8 @@
 <%
     response.setHeader("Cache-Control", "public");
     response.setHeader("Pragma", "Pragma");
-    String salon = request.getParameter("salon");
-    String username = (String) session.getAttribute("username");
+    String salon = (String)session.getAttribute("salon");
+    String username = (String) session.getAttribute("pseudo");
     Cookie cookie = null;
     Cookie[] cookies = request.getCookies();
     for(int i = 0; i< cookies.length; i++) {
@@ -33,34 +31,40 @@
             cookie = cookies[i];
         }
     }
-    if (cookie == null) {
+   /* if (cookie == null) {
         cookie = new Cookie("messageNumber", Integer.toString(messages.getMessageNumber(salon)));
         response.addCookie(cookie);
-    }
+    }*/
+    Cookie messageNumber = new Cookie("messageNumber", Integer.toString(messages.getMessagesList((String)session.getAttribute("salon")).size()));
+    response.addCookie( messageNumber );
+
+
     out.println("<div class='message-status'>" +
             "Bonjour " +
             "<span class='username'>" + username + "</span>" +
-            ", vous êtes sur le salon " + "<span class='salon'>" + salon + "</span>" +
-            " contenant " + "<span class='nb-messages'>" + messages.getMessageNumber(salon) + "</span>" + " messages" +
+            ", vous êtes sur le salon " + "<span class='salon'>" + salon + "</span>"  +
             "</div>");
     out.println("<div class='messages-wrapper'>");
-    for (Message msg : messages.getMessageList(salon)) {
-        String message_class = " ";
-        if (!msg.getPseudo().equals(username))
-            message_class = " other-user ";
-        out.println("<div class='received-message" + message_class + "z-depth-1'>" +
-                "<span>" + msg.getPseudo() + "</span>" +
-                "<p>" + msg.getTexte() + "</p>" +
-                "</div>");
+
+    for (Message m : messages.getMessagesList((String)session.getAttribute("salon"))) {
+        out.println(m.toString() + "<br/>");
     }
-    out.println("</div>");
-    if ("GET".equalsIgnoreCase(request.getMethod())) {
-        if (Integer.parseInt(cookie.getValue()) == messages.getMessageNumber(salon)) {
-            //response.setStatus(SC_NOT_MODIFIED); //breaks auto-refresh
+
+    if (messages.getMessagesList(salon) != null) {
+
+        if (messages.getMessageNumber(salon) != 0) {
+            if ("GET".equalsIgnoreCase(request.getMethod())) {
+                if (Integer.parseInt(cookie.getValue()) == messages.getMessageNumber(salon)) {
+                    //response.setStatus(SC_NOT_MODIFIED); //breaks auto-refresh
+                }
+            }
+            cookie.setValue(Integer.toString(messages.getMessageNumber(salon)));
+            response.addCookie(cookie);
         }
     }
-    cookie.setValue(Integer.toString(messages.getMessageNumber(salon)));
-    response.addCookie(cookie);
+
+
+
 %>
 </body>
 </html>

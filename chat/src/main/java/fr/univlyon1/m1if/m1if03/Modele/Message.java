@@ -24,4 +24,9 @@ public class Message {
     public void setTexte(String texte) {
         this.texte = texte;
     }
+
+    public String toString(){
+        return pseudo + " : " + texte;
+    }
+
 }

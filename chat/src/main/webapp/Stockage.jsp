@@ -2,9 +2,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="fr.univlyon1.m1if.m1if03.Modele.Salon" %>
 <%@ page import="fr.univlyon1.m1if.m1if03.Modele.Message" %>
-<jsp:useBean id="messages" class="fr.univlyon1.m1if.m1if03.Modele.GestionMessages" scope="session">
-    <jsp:setProperty name="messages" property="servletContext" value="<%=request.getServletContext()%>"/>
-</jsp:useBean>
+<jsp:useBean id="messages" class="fr.univlyon1.m1if.m1if03.Modele.GestionMessages" scope="session"/>
+
 <%--
   Created by IntelliJ IDEA.
   User: Elo
@@ -13,17 +12,11 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-<%
-    String salon = request.getParameter("salon");
-    String message = request.getParameter("message");
-    String username = (String) session.getAttribute("username");
-    if (messages.getMessageList(salon) == null) {
-        messages.addSalon(salon);
-    }
-    if ("POST".equalsIgnoreCase(request.getMethod())) {
-        if (message != null || message != "") {
-            Message msg = new Message(username, message);
-            messages.addMessage(salon, msg);
-        }
-    }
-%>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+        <% messages.setMessage(new Message((String) session.getAttribute("pseudo"), (String) request.getParameter("message")), (String)session.getAttribute("salon"));%>
+    </body>
+</html>
