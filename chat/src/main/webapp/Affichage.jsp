@@ -1,5 +1,4 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="fr.univlyon1.m1if.m1if03.Message,java.io.PrintWriter,javax.servlet.http.*,javax.servlet.*,java.util.*" %>
 <%@ page import="java.util.List" %>
 <%@ page import="fr.univlyon1.m1if.m1if03.Modele.Message" %>
 <%@ page import="fr.univlyon1.m1if.m1if03.Modele.Salon" %>
@@ -51,7 +50,7 @@
             message_class = " other-user ";
         out.println("<div class='received-message" + message_class + "z-depth-1'>" +
                 "<span>" + msg.getPseudo() + "</span>" +
-                "<p>" + msg.getText() + "</p>" +
+                "<p>" + msg.getTexte() + "</p>" +
                 "</div>");
     }
     out.println("</div>");
