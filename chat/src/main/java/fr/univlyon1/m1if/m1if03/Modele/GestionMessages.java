@@ -1,6 +1,5 @@
 package fr.univlyon1.m1if.m1if03.Modele;
 
-import javax.servlet.ServletContext;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;

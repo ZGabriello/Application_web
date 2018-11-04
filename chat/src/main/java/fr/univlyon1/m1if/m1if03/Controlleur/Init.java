@@ -2,7 +2,6 @@ package fr.univlyon1.m1if.m1if03.Controlleur;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.PrintWriter;

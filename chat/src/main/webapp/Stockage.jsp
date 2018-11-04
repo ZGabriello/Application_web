@@ -1,6 +1,4 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="java.util.List" %>
-<%@ page import="fr.univlyon1.m1if.m1if03.Modele.Salon" %>
 <%@ page import="fr.univlyon1.m1if.m1if03.Modele.Message" %>
 <jsp:useBean id="messages" class="fr.univlyon1.m1if.m1if03.Modele.GestionMessages" scope="session"/>
 
