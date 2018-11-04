@@ -1,4 +1,4 @@
-package fr.univlyon1.m1if.m1if03;
+package fr.univlyon1.m1if.m1if03.Modele;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Enumeration;
 
-@WebServlet("/Deco")
 public class Deco extends HttpServlet {
 
     public void init(ServletConfig config) throws ServletException {

@@ -7,7 +7,6 @@ import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/Init")
 public class Init extends HttpServlet {
     public void init(ServletConfig config) throws ServletException {
 

@@ -1,6 +1,6 @@
-<%@ page import="fr.univlyon1.m1if.m1if03.Message,java.io.PrintWriter,javax.servlet.http.*,javax.servlet.*,java.util.*" %>
+<%@ page import="fr.univlyon1.m1if.m1if03.Modele.Message,java.io.PrintWriter,javax.servlet.http.*,javax.servlet.*,java.util.*" %>
 <%@ page import="java.util.List" %>
-<%@ page import="fr.univlyon1.m1if.m1if03.Salon" %><%--
+<%@ page import="fr.univlyon1.m1if.m1if03.Modele.Salon" %><%--
   Created by IntelliJ IDEA.
   User: Elo
   Date: 28/10/2018

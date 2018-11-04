@@ -1,8 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="fr.univlyon1.m1if.m1if03.Message,java.io.PrintWriter,javax.servlet.http.*,javax.servlet.*,java.util.*" %>
 <%@ page import="java.util.List" %>
 <%@ page import="fr.univlyon1.m1if.m1if03.Modele.Salon" %>
-<%@page import="com.Chat.Modele.Message" %>
+<%@ page import="fr.univlyon1.m1if.m1if03.Modele.Message" %>
 <jsp:useBean id="messages" class="fr.univlyon1.m1if.m1if03.Modele.GestionMessages" scope="session">
     <jsp:setProperty name="messages" property="servletContext" value="<%=request.getServletContext()%>"/>
 </jsp:useBean>

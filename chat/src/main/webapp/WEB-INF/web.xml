@@ -11,7 +11,7 @@
   <display-name>Archetype Created Web Application</display-name>
   <servlet>
     <servlet-name>Init</servlet-name>
-    <servlet-class>fr.univlyon1.m1if.m1if03.Init</servlet-class>
+    <servlet-class>fr.univlyon1.m1if.m1if03.Controlleur.Init</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>Init</servlet-name>
@@ -26,4 +26,14 @@
     <servlet-name>Messages</servlet-name>
     <url-pattern>/messages</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>Deco</servlet-name>
+    <servlet-class>fr.univlyon1.m1if.m1if03.Modele.Deco</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Deco</servlet-name>
+    <url-pattern>/deco</url-pattern>
+  </servlet-mapping>
+
 </web-app>
