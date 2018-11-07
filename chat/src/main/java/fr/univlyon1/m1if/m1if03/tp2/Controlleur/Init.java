@@ -1,4 +1,4 @@
-package fr.univlyon1.m1if.m1if03.Controlleur;
+package fr.univlyon1.m1if.m1if03.tp2.Controlleur;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;

@@ -1,4 +1,4 @@
-package fr.univlyon1.m1if.m1if03.Modele;
+package fr.univlyon1.m1if.m1if03.tp2.Modele;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;

@@ -1,57 +1,23 @@
 <!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
+        "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+        "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns="http://java.sun.com/xml/ns/javaee"
-    xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
-    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
-    version="3.0">
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://java.sun.com/xml/ns/javaee"
+        xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+        version="3.0">
   <display-name>Archetype Created Web Application</display-name>
+
   <servlet>
-    <servlet-name>Init</servlet-name>
-    <servlet-class>fr.univlyon1.m1if.m1if03.Controlleur.Init</servlet-class>
+    <servlet-name>dispatcher</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
   </servlet>
-  <servlet-mapping>
-    <servlet-name>Init</servlet-name>
-    <url-pattern>/init</url-pattern>
-  </servlet-mapping>
 
-  <servlet>
-  <servlet-name>Messages</servlet-name>
-  <jsp-file>/Messages.jsp</jsp-file>
-</servlet>
   <servlet-mapping>
-    <servlet-name>Messages</servlet-name>
-    <url-pattern>/messages</url-pattern>
+    <servlet-name>dispatcher</servlet-name>
+    <url-pattern>/test/*</url-pattern>
   </servlet-mapping>
-
-  <servlet>
-    <servlet-name>Affichage</servlet-name>
-    <jsp-file>/Affichage.jsp</jsp-file>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Affichage</servlet-name>
-    <url-pattern>/affichage</url-pattern>
-  </servlet-mapping>
-
-  <servlet>
-    <servlet-name>Stockage</servlet-name>
-    <jsp-file>/Stockage.jsp</jsp-file>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Stockage</servlet-name>
-    <url-pattern>/stockage</url-pattern>
-  </servlet-mapping>
-
-  <servlet>
-    <servlet-name>Deco</servlet-name>
-    <servlet-class>fr.univlyon1.m1if.m1if03.Modele.Deco</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Deco</servlet-name>
-    <url-pattern>/deco</url-pattern>
-  </servlet-mapping>
-
 </web-app>

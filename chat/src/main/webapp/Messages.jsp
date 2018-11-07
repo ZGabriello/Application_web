@@ -1,4 +1,4 @@
-<%@ page import="fr.univlyon1.m1if.m1if03.Modele.Message,java.io.PrintWriter,javax.servlet.http.*,javax.servlet.*,java.util.*" %>
+<%@ page import="fr.univlyon1.m1if.m1if03.tp2.Modele.Message,java.io.PrintWriter,javax.servlet.http.*,javax.servlet.*,java.util.*" %>
   Created by IntelliJ IDEA.
   User: Elo
   Date: 28/10/2018
@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <META HTTP-EQUIV=Refresh CONTENT="5">
 
-<jsp:useBean id="messages" scope="session" class="fr.univlyon1.m1if.m1if03.Modele.GestionMessages" />
+<jsp:useBean id="messages" scope="session" class="fr.univlyon1.m1if.m1if03.tp2.Modele.GestionMessages" />
 <%!  private ArrayList<Message> list;%>
 <%!  private String salon;%>
 
@@ -28,4 +28,4 @@
 <jsp:include page= 'Stockage.jsp' />
 <% }%>
 
-<jsp:forward page= 'Affichage.jsp' />
+<jsp:forward page= 'WEB-INF/jsp/Affichage.jsp' />

@@ -1,11 +1,11 @@
-package fr.univlyon1.m1if.m1if03.Modele;
+package fr.univlyon1.m1if.m1if03.tp2.Modele;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class GestionMessages {
-    private static Map<String, ArrayList<Message>> messages = new HashMap<>();
+    private static Map<String, ArrayList<Message>> messages = new HashMap<String, ArrayList<Message>>();
     //private ArrayList<Salon> salon;
 
     public GestionMessages() {
