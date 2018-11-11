@@ -39,3 +39,8 @@ input[type=submit] {
 input[type=submit]:hover {
     background-color: #4887a0;
 }
+
+.message-status {
+    margin: 20px;
+    padding: 20px;
+}

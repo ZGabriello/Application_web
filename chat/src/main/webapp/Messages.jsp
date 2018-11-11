@@ -28,4 +28,4 @@
 <jsp:include page= 'Stockage.jsp' />
 <% }%>
 
-<jsp:forward page= 'WEB-INF/jsp/Affichage.jsp' />
+<jsp:forward page= 'Affichage.jsp' />

@@ -9,6 +9,9 @@ import java.io.IOException;
 @WebFilter(filterName = "FilterLogin")
 public class FilterLogin implements Filter {
 
+    protected FilterConfig filterConfig;
+    java.util.List revokeList;
+
     public FilterLogin() {
     }
 
@@ -16,7 +19,7 @@ public class FilterLogin implements Filter {
         HttpServletRequest httpServletRequest = (HttpServletRequest) req;
         HttpServletResponse httpServletResponse = (HttpServletResponse) resp;
 
-        String username = (String) httpServletRequest.getSession().getAttribute("username");
+        String username = (String) httpServletRequest.getParameter("pseudo");
         if (username == null || username.trim().isEmpty()) {
             httpServletResponse.sendRedirect("/");
         }
@@ -31,11 +34,11 @@ public class FilterLogin implements Filter {
 
     @Override
     public void destroy() {
-
+        this.filterConfig = null;
     }
 
     public void init(FilterConfig config) throws ServletException {
-
+        this.filterConfig = config;
     }
 
 }

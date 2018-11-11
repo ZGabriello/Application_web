@@ -14,6 +14,7 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection"/>
     <link type="text/css" rel="stylesheet" href="css/interface.css"/>
+    <link href="style.css" rel="stylesheet" media="all" type="text/css">
 </head>
 <body class="frame-body">
 <%
@@ -36,11 +37,11 @@
     response.addCookie( messageNumber );
 
 
-    out.println("<div class='message-status'>" +
+    out.println("<div class='message-status'>" + "<p> "+
             "Bonjour " +
             "<span class='username'>" + username + "</span>" +
-            ", vous êtes sur le salon " + "<span class='salon'>" + salon + "</span>"  +
-            "</div>");
+            ", vous êtes sur le salon " + "<span class='salon'>" + salon + "</span>" + "</p> " +
+            "</div>" + "<br/>");
     out.println("<div class='messages-wrapper'>");
 
     for (Message m : messages.getMessagesList((String)session.getAttribute("salon"))) {

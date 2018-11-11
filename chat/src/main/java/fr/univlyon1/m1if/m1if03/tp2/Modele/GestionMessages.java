@@ -6,7 +6,6 @@ import java.util.Map;
 
 public class GestionMessages {
     private static Map<String, ArrayList<Message>> messages = new HashMap<String, ArrayList<Message>>();
-    //private ArrayList<Salon> salon;
 
     public GestionMessages() {
 

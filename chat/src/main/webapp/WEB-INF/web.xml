@@ -20,4 +20,63 @@
     <servlet-name>dispatcher</servlet-name>
     <url-pattern>/test/*</url-pattern>
   </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Init</servlet-name>
+        <servlet-class>fr.univlyon1.m1if.m1if03.tp2.Controlleur.Init</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Init</servlet-name>
+        <url-pattern>/init</url-pattern>
+    </servlet-mapping>
+
+    <filter>
+        <filter-name>FilterLogin</filter-name>
+        <filter-class>fr.univlyon1.m1if.m1if03.tp2.Controlleur.FilterLogin</filter-class>
+    </filter>
+
+    <!-- déclaration des URL interceptées par ce filtre -->
+    <filter-mapping>
+        <filter-name>FilterLogin</filter-name>
+        <!-- on aurait pu aussi définir une servlet filtrée, par un élément servlet-name -->
+        <url-pattern>/tpSpring/*</url-pattern>
+    </filter-mapping>
+
+    <servlet>
+        <servlet-name>Messages</servlet-name>
+        <jsp-file>/Messages.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Messages</servlet-name>
+        <url-pattern>/messages</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Affichage</servlet-name>
+        <jsp-file>/Affichage.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Affichage</servlet-name>
+        <url-pattern>/affichage</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Stockage</servlet-name>
+        <jsp-file>/Stockage.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Stockage</servlet-name>
+        <url-pattern>/stockage</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+    <servlet-name>Deco</servlet-name>
+    <servlet-class>fr.univlyon1.m1if.m1if03.tp2.Modele.Deco</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Deco</servlet-name>
+        <url-pattern>/deco</url-pattern>
+    </servlet-mapping>
+
+
 </web-app>
