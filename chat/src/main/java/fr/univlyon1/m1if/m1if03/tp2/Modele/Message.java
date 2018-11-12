@@ -3,7 +3,7 @@ package fr.univlyon1.m1if.m1if03.tp2.Modele;
 import fr.univlyon1.m1if.m1if03.tp3.beans.UserBean;
 
 public class Message {
-    private UserBean user;
+    private UserBean user = new UserBean();
     private String texte;
     private int numero;
 
