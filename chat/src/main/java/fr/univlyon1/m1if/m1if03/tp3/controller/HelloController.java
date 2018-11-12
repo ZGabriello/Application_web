@@ -4,6 +4,8 @@ import fr.univlyon1.m1if.m1if03.tp2.Modele.GestionMessages;
 import fr.univlyon1.m1if.m1if03.tp2.Modele.Message;
 import fr.univlyon1.m1if.m1if03.tp3.beans.GestionUsersBean;
 import fr.univlyon1.m1if.m1if03.tp3.beans.HelloBean;
+import fr.univlyon1.m1if.m1if03.tp3.beans.UserBean;
+import fr.univlyon1.m1if.m1if03.tp3.beans.UserCreateRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -37,20 +39,10 @@ public class HelloController {
     }
 
     @PostMapping("/users")
-    public ModelAndView user() {
-        /*Map<String, ArrayList<String>> map = new HashMap<String, ArrayList<String>>();
-        ArrayList<String> users = gestionUsers.getUsersList();
-
-        if (pseudo != null && !pseudo.isEmpty() && !users.contains(pseudo)) {
-            gestionUsers.addUser(pseudo);
-            map.put("newUser", gestionUsers.getUsersList());
-*/
-            return new ModelAndView("addUser");
-
-       /* } else {
-            return new ModelAndView("UserNotAdded");
-        }*/
-
+    public UserBean user(@ModelAttribute UserCreateRequest request) {
+        UserBean user = new UserBean();
+        gestionUsers.addUser(user);
+        return user;
     }
 
     @GetMapping("/message")

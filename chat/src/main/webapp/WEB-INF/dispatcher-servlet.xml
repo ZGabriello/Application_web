@@ -15,6 +15,9 @@
     <bean id="gestionUsers" class="fr.univlyon1.m1if.m1if03.tp3.beans.GestionUsersBean">
         <!-- collaborators and configuration for this bean go here -->
     </bean>
+    <bean id="user" class="fr.univlyon1.m1if.m1if03.tp3.beans.UserBean">
+        <!-- collaborators and configuration for this bean go here -->
+    </bean>
     <bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
         <property name="prefix" value="/WEB-INF/jsp/"/>

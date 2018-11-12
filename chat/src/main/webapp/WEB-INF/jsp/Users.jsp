@@ -1,4 +1,5 @@
 <%@ page import="fr.univlyon1.m1if.m1if03.tp3.beans.GestionUsersBean,java.io.PrintWriter,javax.servlet.http.*,javax.servlet.*,java.util.*" %>
+<%@ page import="fr.univlyon1.m1if.m1if03.tp3.beans.UserBean" %>
 
 <%--
   Created by IntelliJ IDEA.
@@ -11,7 +12,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <jsp:useBean id="users" scope="session" class="fr.univlyon1.m1if.m1if03.tp3.beans.GestionUsersBean" />
-<%!  private ArrayList<String> list;%>
+<%!  private ArrayList<UserBean> list;%>
 <%!  private String pseudo;%>
 
 <%

@@ -5,17 +5,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GestionUsersBean {
-    private static ArrayList<String> users = new ArrayList<String>();
+    private static ArrayList<UserBean> users = new ArrayList<UserBean>();
 
     public GestionUsersBean() {
 
     }
 
-    public void addUser(String user){
+    public void addUser(UserBean user){
         users.add(user);
     }
 
-    public ArrayList<String> getUsersList(){
+    public ArrayList<UserBean> getUsersList(){
         return users;
     }
 

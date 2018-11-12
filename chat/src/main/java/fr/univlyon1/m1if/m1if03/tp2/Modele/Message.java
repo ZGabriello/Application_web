@@ -1,22 +1,24 @@
 package fr.univlyon1.m1if.m1if03.tp2.Modele;
 
+import fr.univlyon1.m1if.m1if03.tp3.beans.UserBean;
+
 public class Message {
-    private String pseudo;
+    private UserBean user;
     private String texte;
     private int numero;
 
     public Message(String pseudo, String texte, int numero) {
-        this.pseudo = pseudo;
+        this.user.setPseudo(pseudo);
         this.texte = texte;
         this.numero = numero;
     }
 
-    public String getPseudo() {
-        return pseudo;
+    public UserBean getUser() {
+        return user;
     }
 
-    public void setPseudo(String pseudo) {
-        this.pseudo = pseudo;
+    public void setUser(UserBean user) {
+        this.user = user;
     }
 
     public String getTexte() {
@@ -36,7 +38,7 @@ public class Message {
     }
 
     public String toString(){
-        return pseudo + " : " + texte;
+        return user.getPseudo() + " : " + texte;
     }
 
 }
