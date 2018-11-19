@@ -7,6 +7,7 @@ import java.util.Map;
 public class GestionMessages {
     private static Map<String, ArrayList<Message>> messages = new HashMap<String, ArrayList<Message>>();
 
+
     public GestionMessages() {
 
     }
@@ -17,6 +18,21 @@ public class GestionMessages {
 
     public ArrayList<Message> getMessagesList(String salon){
         return messages.get(salon);
+    }
+
+    public ArrayList<Message> getMessagesListAfter(String salon, int num) {
+
+        ArrayList<Message> messagesAfter = new ArrayList<Message>();
+        Map<String, ArrayList<Message>> newMessages = new HashMap<String, ArrayList<Message>>();
+
+
+        for(Message m : messages.get(salon)) {
+            if(m.getNum() > num) {
+                messagesAfter.add(m);
+            }
+        }
+        newMessages.put(salon,messagesAfter);
+        return newMessages.get(salon);
     }
 
     public void setMessage(Message m, String salon){
