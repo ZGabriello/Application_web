@@ -3,47 +3,62 @@ package fr.univlyon1.m1if.m1if03.tp4.controller;
 import fr.univlyon1.m1if.m1if03.tp2.Modele.GestionMessages;
 import fr.univlyon1.m1if.m1if03.tp2.Modele.Message;
 import fr.univlyon1.m1if.m1if03.tp3.beans.GestionUsersBean;
-import fr.univlyon1.m1if.m1if03.tp3.beans.HelloBean;
-import fr.univlyon1.m1if.m1if03.tp3.beans.UserBean;
-import fr.univlyon1.m1if.m1if03.tp3.beans.UserCreateRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.ServletContext;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-@RestController
-@RequestMapping("/salon/*")
-public class SalonController {
-    private HelloBean helloBean;
+@Controller
+//@RequestMapping("/back-officeRest/*")
+public class BOController {
     private GestionMessages gestionMessages;
     private GestionUsersBean gestionUsers;
+    private ServletContext servletContext;
 
     @Autowired
-    public SalonController(GestionMessages gestionMessages, GestionUsersBean gestionUsers) {
+    public BOController(GestionMessages gestionMessages, GestionUsersBean gestionUsers) {
 
         this.gestionMessages = gestionMessages;
         this.gestionUsers = gestionUsers;
     }
 
-    @GetMapping("/listeMessages")
+   @GetMapping("/messages")
     public ModelAndView listeMessages(@RequestParam(name="name") String name) {
         Map<String, ArrayList<Message>> map = new HashMap<String, ArrayList<Message>>();
         map.put("messages", gestionMessages.getMessagesList(name));
         return new ModelAndView("listeMessages", map);
     }
 
-    @GetMapping("/nbMessages")
+   @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
+   public String getBackOffice(Model model) {
+
+      // model.addAttribute("lobbies", this.gestionMessages.getLobbies());
+
+       return "back-officeRest";
+   }
+    /*@RequestMapping(value = "messages/{lobbyName}", method = RequestMethod.GET)
+    @ResponseBody
+    public ArrayList<Message> get(@PathVariable String lobbyName, Model model) {
+        ArrayList<Message> liste = this.gestionMessages.getMessagesList(lobbyName);
+
+        return liste;
+    }*/
+
+    @GetMapping("/messages/nb")
     public ModelAndView nbMessages(@RequestParam(name="name") String name) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("nombre", gestionMessages.getMessageNumber(name));
         return new ModelAndView("nbMessages", map);
     }
 
-    @GetMapping("/messagesUlterieur")
+    @GetMapping("/messages/after")
     public ModelAndView messagesUlterieur(@RequestParam(name="name") String name,@RequestParam(name="num") int num) {
         Map<String, ArrayList<Message>> map = new HashMap<String, ArrayList<Message>>();
         map.put("messages", gestionMessages.getMessagesListAfter(name,num));

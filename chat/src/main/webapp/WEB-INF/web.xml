@@ -18,7 +18,7 @@
 
   <servlet-mapping>
     <servlet-name>dispatcher</servlet-name>
-    <url-pattern>/test/*</url-pattern>
+    <url-pattern>/back-officeRest/*</url-pattern>
   </servlet-mapping>
 
     <servlet>
