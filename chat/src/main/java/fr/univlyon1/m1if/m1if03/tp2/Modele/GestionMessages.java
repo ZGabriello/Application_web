@@ -44,5 +44,13 @@ public class GestionMessages {
     }
 
 
+    public Message getLastMessageAdded(String salon) {
 
+        for(Message m : messages.get(salon)) {
+            if(m.getNum()-1 == messages.size()) {
+                return m;
+            }
+        }
+        return null;
+    }
 }

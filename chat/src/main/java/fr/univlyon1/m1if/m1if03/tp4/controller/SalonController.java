@@ -49,6 +49,14 @@ public class SalonController {
         map.put("messages", gestionMessages.getMessagesListAfter(name,num));
         return new ModelAndView("listeMessages", map);
     }
+
+    @PostMapping("/ajoutMessage")
+    public @ResponseBody Message ajoutMessage(@RequestParam(name="name") String name,@RequestParam(name="usr") String usr,@RequestParam(name="text") String text,@RequestParam(name="num") int num) {
+        //int num = gestionMessages.getMessageNumber(name)+1;
+        Message msg = new Message(usr,text,num);
+        gestionMessages.setMessage(msg,name);
+        return msg;
+    }
 /*
     @PostMapping("/users")
     public UserBean user(@ModelAttribute UserCreateRequest request) {
