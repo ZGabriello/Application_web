@@ -1,11 +1,20 @@
 package fr.univlyon1.m1if.m1if03.tp2.Modele;
 
+import fr.univlyon1.m1if.m1if03.tp3.beans.GestionUsersBean;
+import fr.univlyon1.m1if.m1if03.tp3.beans.Salon;
+import fr.univlyon1.m1if.m1if03.tp3.beans.UserBean;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class GestionMessages {
-    private static Map<String, ArrayList<Message>> messages = new HashMap<String, ArrayList<Message>>();
+    private static Map<String, List<Message>> messages = new HashMap<String, List<Message>>();
+    private static final List<Salon> salons = new ArrayList<Salon>();
+
+
+    private Salon salon;
 
 
     public GestionMessages() {
@@ -16,27 +25,42 @@ public class GestionMessages {
         messages.put(salon, new ArrayList<Message>());
     }
 
-    public ArrayList<Message> getMessagesList(String salon){
+    /*public void setSalon(String nom) {
+        for (Salon s : salons) {
+            if (s.getNom().equals(nom)) {
+                this.salon = s;
+                return;
+            }
+        }
+
+        this.salon = new Salon(nom);
+        salons.add(this.salon);
+    }
+*/
+    public List<Message> getMessagesList(String salon){
         return messages.get(salon);
     }
 
-    public ArrayList<Message> getMessagesListAfter(String salon, int num) {
+    public void addMessage(Message message) {
+        if (this.salon == null)
+            return;
 
-        ArrayList<Message> messagesAfter = new ArrayList<Message>();
-        Map<String, ArrayList<Message>> newMessages = new HashMap<String, ArrayList<Message>>();
+        if (message.getUser() == null)
+            return;
 
-
-        for(Message m : messages.get(salon)) {
-            if(m.getNum() > num) {
-                messagesAfter.add(m);
-            }
-        }
-        newMessages.put(salon,messagesAfter);
-        return newMessages.get(salon);
+        this.salon.addMessage(message);
     }
 
     public void setMessage(Message m, String salon){
         messages.get(salon).add(m);
+    }
+
+    public void addMessage(String message, UserBean author) {
+        this.addMessage(new Message(author,message));
+    }
+
+    public void addMessage(String message, String author) {
+        this.addMessage(new Message(GestionUsersBean.getUser(author), message));
     }
 
     public int getMessageNumber(String salon){
@@ -44,13 +68,4 @@ public class GestionMessages {
     }
 
 
-    public Message getLastMessageAdded(String salon) {
-
-        for(Message m : messages.get(salon)) {
-            if(m.getNum()-1 == messages.size()) {
-                return m;
-            }
-        }
-        return null;
-    }
 }

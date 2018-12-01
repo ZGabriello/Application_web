@@ -10,6 +10,6 @@
         
         ${message}
         <br>
-        <a href="/tpRest/test/back-officeRest/">Retour à l'accueil du back office</a>
+        <a href="/tpRest/back-officeRest/">Retour à l'accueil du back office</a>
     </body>
 </html>

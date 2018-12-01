@@ -9,7 +9,7 @@
 
         <script type="text/javascript">
             function buttonClick() {
-                var url = "/tpRest/test/back-officeRest/messages/";
+                var url = "/tpRest/back-officeRest/messages/";
 
                 if (document.getElementById("lobbyName").value === "") {
                     return;
@@ -62,14 +62,9 @@
                     
 
             <div class="section">Ajouter un utilisateur</div>
-            <form method="POST" action="/tpRest/test/back-officeRest/users/add">
+            <form method="POST" action="/tpRest/back-officeRest/users/add">
                 <div class="inner-wrap">
-                    <label>Utilisateur à ajouter : </label>
-                    <input name="username" type="text"/>
-                    <div>
-                        <input type="submit"/>
-                    </div>
-                    <a href="/tpRest/test/back-officeRest/users">Voir les utilisateurs ayant l'autorisation</a>
+                    <a href="/tpRest/back-officeRest/users">Voir la liste des utilisateurs</a>
                 </div>
             </form>
             

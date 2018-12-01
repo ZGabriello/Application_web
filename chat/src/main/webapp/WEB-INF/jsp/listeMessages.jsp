@@ -14,7 +14,7 @@
     <title>Liste des messages</title>
 </head>
 <body>
-<h1>Liste des messages pour le salon <%= request.getParameter("name")%></h1>
+<h1>Liste des messages pour le salon <%= request.getParameter("salon")%></h1>
 <%!  private ArrayList<Message> list;%>
 <%  list = (ArrayList<Message>)request.getAttribute("messages");
     for (Message m : list ) {

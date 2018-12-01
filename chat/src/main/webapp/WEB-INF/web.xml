@@ -31,15 +31,17 @@
     </servlet-mapping>
 
     <filter>
-        <filter-name>FilterLogin</filter-name>
-        <filter-class>fr.univlyon1.m1if.m1if03.tp2.Controlleur.FilterLogin</filter-class>
+        <filter-name>Filter</filter-name>
+        <filter-class>fr.univlyon1.m1if.m1if03.tp2.Controlleur.Filter</filter-class>
     </filter>
 
-    <!-- déclaration des URL interceptées par ce filtre -->
     <filter-mapping>
-        <filter-name>FilterLogin</filter-name>
-        <!-- on aurait pu aussi définir une servlet filtrée, par un élément servlet-name -->
-        <url-pattern>/tpSpring/*</url-pattern>
+        <filter-name>Filter</filter-name>
+        <!--<url-pattern>/index.html</url-pattern>-->
+        <url-pattern>/interface.html</url-pattern>
+        <url-pattern>/Affichage.jsp</url-pattern>
+        <url-pattern>/Messages.jsp</url-pattern>
+        <url-pattern>/Stockage.jsp</url-pattern>
     </filter-mapping>
 
     <servlet>

@@ -12,6 +12,7 @@
 <html>
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="refresh" content="5;url=messages" />
     <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection"/>
     <link type="text/css" rel="stylesheet" href="css/interface.css"/>
     <link href="style.css" rel="stylesheet" media="all" type="text/css">
@@ -29,10 +30,7 @@
             cookie = cookies[i];
         }
     }
-   /* if (cookie == null) {
-        cookie = new Cookie("messageNumber", Integer.toString(messages.getMessageNumber(salon)));
-        response.addCookie(cookie);
-    }*/
+
     Cookie messageNumber = new Cookie("messageNumber", Integer.toString(messages.getMessagesList((String)session.getAttribute("salon")).size()));
     response.addCookie( messageNumber );
 

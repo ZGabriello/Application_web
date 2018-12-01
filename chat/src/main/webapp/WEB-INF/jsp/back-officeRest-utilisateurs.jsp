@@ -10,7 +10,7 @@
     </head>
     <body>
         
-        <div class="chat" style="width: 500px;padding: 30px;margin: 40px auto;background: #FFF;border-radius: 10px;-webkit-border-radius: 10px;-moz-border-radius: 10px;box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.13);-moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.13);-webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.13);">
+        <div class="chat" style="width: 500px;padding: 30px;margin: 40px auto;background: #FFF;">
             <c:choose>
                 <c:when test="${requete == 'GET'}">
 
@@ -27,7 +27,7 @@
                         </c:otherwise>
                     </c:choose>
 
-                    <a href="/tpRest/test/back-officeRest/">Retour à l'accueil du back office</a>
+                    <a href="/tpRest/back-officeRest/">Retour à l'accueil du back office</a>
                 </c:when>
                  <c:when test="${requete == 'POST'}">
 
@@ -40,9 +40,9 @@
                         </c:otherwise>
                      </c:choose>
 
-                    <a href="/tpRest/test/back-officeRest/users">Voir la liste des utilisateurs</a>
+                    <a href="/tpRest/back-officeRest/users">Voir la liste des utilisateurs</a>
                     <br>
-                    <a href="/tpRest/test/back-officeRest/">Retour à l'accueil du back office</a>
+                    <a href="/tpRest/back-officeRest/">Retour à l'accueil du back office</a>
 
                 </c:when>
             </c:choose>
