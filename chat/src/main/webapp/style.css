@@ -14,43 +14,43 @@
     border-radius: 10px;
 }
 
-.chat .inner-wrap{
+.inner-wrap{
     padding: 30px;
     background: #F8F8F8;
     border-radius: 6px;
     margin-bottom: 15px;
 }
-.chat h1{
+h1{
     background: #2A88AD;
     padding: 20px 30px 15px 30px;
     margin: -30px -30px 30px -30px;
     border-radius: 10px 10px 0 0;
-    color: #fff;
+    color: blue;
     font: normal 30px 'Bitter', serif;
     border: 1px solid #257C9E;
 }
-.chat h1 > span{
+h1 > span{
     display: block;
     margin-top: 2px;
     font: 13px Arial, Helvetica, sans-serif;
 }
-.chat label{
+label{
     display: block;
     font: 13px Arial, Helvetica, sans-serif;
     color: #888;
     margin-bottom: 15px;
 }
-.chat input[type="text"],
-.chat input[type="date"],
-.chat input[type="datetime"],
-.chat input[type="email"],
-.chat input[type="number"],
-.chat input[type="search"],
-.chat input[type="time"],
-.chat input[type="url"],
-.chat input[type="password"],
-.chat textarea,
-.chat select {
+input[type="text"],
+input[type="date"],
+input[type="datetime"],
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="time"],
+input[type="url"],
+input[type="password"],
+textarea,
+select {
     display: block;
     box-sizing: border-box;
     width: 100%;
@@ -59,12 +59,13 @@
     border: 2px solid #fff;
 }
 
-.chat .section{
+.section{
     font: normal 20px 'Bitter', serif;
     color: #2A88AD;
     margin-bottom: 5px;
 }
-.chat .section span {
+
+.section span {
     background: #2A88AD;
     padding: 5px 10px 5px 10px;
     border-radius: 50%;
@@ -74,9 +75,9 @@
     color: #fff;
     margin-top: -3px;
 }
-.chat input[type="button"],
+input[type="button"],
 
-.chat .privacy-policy{
+.privacy-policy{
     float: right;
     width: 250px;
     font: 12px Arial, Helvetica, sans-serif;
@@ -85,14 +86,14 @@
     text-align: right;
 }
 
-.chat div > a {
+div > a {
     text-align:center;
     display: block;
     font: normal 20px 'Bitter', serif;
     text-decoration: none;
 }
 
-.chat a {
+a {
     font: normal 20px 'Bitter', serif;
     text-decoration: none;
 }
