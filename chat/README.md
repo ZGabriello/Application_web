@@ -41,25 +41,25 @@ Le but de ce tp est d'apporter une interface REST à notre application.
 
 Pour cela nous avons ajouté, comme demandé, les différentes requêtes vers des ressources de notre chat. Les URLs pour y accéder sont les suivantes :
 
-* Récupérer pseudo et liste des salons auxquels l'utilisateur a participé : curl -X GET localhost:8080/tpRest/test/back-officeRest/user/nomUtilisateur 
+* Récupérer pseudo et liste des salons auxquels l'utilisateur a participé : `curl -X GET localhost:8080/tpRest/test/back-officeRest/user/nomUtilisateur` 
 
-* Modifier le pseudo : curl -X PUT localhost : 8080/tpRest/test/back-officeRest/user/updateName/ancienNom/NouveauNom 
+* Modifier le pseudo : `curl -X PUT localhost:8080/tpRest/test/back-officeRest/user/updateName/ancienNom/NouveauNom `
 
-* Récupérer la liste des messages : curl -X GET localhost:8080/tpRest/test/back-officeRest/messages/nomDuSalon 
+* Récupérer la liste des messages : `curl -X GET localhost:8080/tpRest/test/back-officeRest/messages/nomDuSalon` 
 
-* Récupérer le nombre de messages : curl -X GET localhost:8080/tpRest/test/back-officeRest/messages/nomDuSalon/nb
+* Récupérer le nombre de messages : `curl -X GET localhost:8080/tpRest/test/back-officeRest/messages/nomDuSalon/nb`
 
-* Récupérer tous les messages envoyés après un id données : curl -X GET localhost:8080/tpRest/test/back-officeRest/messages/nomDuSalon/from/idDuMessage 
+* Récupérer tous les messages envoyés après un id données : `curl -X GET localhost:8080/tpRest/test/back-officeRest/messages/nomDuSalon/from/idDuMessage `
 
-* Ajouter un message : curl -X POST -d "user=nomUtilisateur" -d "message=message" localhost:8080/tpRest/test/back-officeRest/messages/nomDuSalon/add 
+* Ajouter un message :` curl -X POST -d "user=nomUtilisateur" -d "message=message" localhost:8080/tpRest/test/back-officeRest/messages/nomDuSalon/add `
 
-* Supprimer un salon : curl -X DELETE localhost:8080/tpRest/test/back-officeRest/messages/nomDuSalon/del 
+* Supprimer un salon : `curl -X DELETE localhost:8080/tpRest/test/back-officeRest/messages/nomDuSalon/del `
 
-* Récupérer les informations du message (auteur, texte) : curl -X GET localhost:8080/tpRest/test/back-officeRest/messages/nomDuSalon/numeroDuMessage 
+* Récupérer les informations du message (auteur, texte) :` curl -X GET localhost:8080/tpRest/test/back-officeRest/messages/nomDuSalon/numeroDuMessage `
  
-* Modifier le contenu du dernier message d'un salon : curl -X PUT localhost:8080/tpRest/test/back-officeRest/messages/nomDuSalon/upLast?message=newMessage 
+* Modifier le contenu du dernier message d'un salon : `curl -X PUT localhost:8080/tpRest/test/back-officeRest/messages/nomDuSalon/upLast?message=newMessage `
 
-* Supprimer le dernier message d'un salon : curl -X DELETE localhost:8080/tpRest/test/back-officeRest/messages/nomDuSalon/delLast 
+* Supprimer le dernier message d'un salon : `curl -X DELETE localhost:8080/tpRest/test/back-officeRest/messages/nomDuSalon/delLast `
 
 Afin de demander le contenu en JSON, en ligne de commande il est possible de faire comme cela : `curl -X GET -H "Accept:application/json" localhost:8080/tpRest/test/back-officeRest/messages/nomDuSalon`
 
