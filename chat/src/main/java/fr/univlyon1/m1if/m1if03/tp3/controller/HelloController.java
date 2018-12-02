@@ -4,8 +4,10 @@ import fr.univlyon1.m1if.m1if03.tp2.Modele.GestionMessages;
 import fr.univlyon1.m1if.m1if03.tp2.Modele.Message;
 import fr.univlyon1.m1if.m1if03.tp3.beans.GestionUsersBean;
 import fr.univlyon1.m1if.m1if03.tp3.beans.HelloBean;
+import fr.univlyon1.m1if.m1if03.tp3.beans.UserBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -37,7 +39,6 @@ public class HelloController {
     }
 
 
-
     @GetMapping("/message")
     public ModelAndView message(@RequestParam(name="name") String name, @RequestParam(name="num") int num) {
         Map<String, String> map = new HashMap<String, String>();
@@ -53,6 +54,24 @@ public class HelloController {
         map.put("message", msg.getTexte());
 
         return new ModelAndView("contenuMessage", map);
+    }
+
+    @RequestMapping(value = "users/add", method = RequestMethod.POST)
+    public String postUsers(@RequestParam("username") String nomUtilisateur, Model model) {
+        model.addAttribute("requete", "POST");
+
+        for (UserBean u : GestionUsersBean.getUsersList()) {
+            if (u.getPseudo().equals(nomUtilisateur)) {
+                model.addAttribute("user", "dejaPresentDansLaListe");
+
+                return "back-officeRest-utilisateurs";
+            }
+        }
+
+        GestionUsersBean.addUser(nomUtilisateur);
+        model.addAttribute("user", nomUtilisateur);
+
+        return "back-officeRest-utilisateurs";
     }
 
     /*@Autowired

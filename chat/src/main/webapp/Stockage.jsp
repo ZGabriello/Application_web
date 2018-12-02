@@ -10,11 +10,11 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    </head>
-    <body>
-            <% messages.setMessage(new Message((String) session.getAttribute("pseudo"), (String) request.getParameter("message")), (String)session.getAttribute("salon"));%>
-    </body>
-</html>
+<% // if (request.getParameter("message") != null && !request.getParameter("message").equals("")) {
+
+    messages.addMessage((String)request.getParameter("message"), (String)session.getAttribute("pseudo"));
+
+    //messages.setMessage(new Message((String) session.getAttribute("pseudo"), (String) request.getParameter("message")), (String) session.getAttribute("salon"));
+   // }
+%>
+

@@ -3,6 +3,7 @@ package fr.univlyon1.m1if.m1if03.tp4.controller;
 import fr.univlyon1.m1if.m1if03.tp2.Modele.GestionMessages;
 import fr.univlyon1.m1if.m1if03.tp2.Modele.Message;
 import fr.univlyon1.m1if.m1if03.tp3.beans.GestionUsersBean;
+import fr.univlyon1.m1if.m1if03.tp3.beans.Salon;
 import fr.univlyon1.m1if.m1if03.tp3.beans.UserBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,13 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-//@RequestMapping("/back-officeRest/*")
+@RequestMapping("/back-officeRest/*")
 public class BOController {
 
     @Autowired
     private ServletContext servletContext;
     private GestionMessages gestionMessages;
-   // private GestionUsersBean gestionUsers;
 
     public BOController() {
 
@@ -31,9 +31,89 @@ public class BOController {
     @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
     public String getBackOffice(Model model) {
 
-        // model.addAttribute("lobbies", this.gestionMessages.getLobbies());
+        model.addAttribute("salons", this.gestionMessages.getSalons());
 
         return "back-officeRest";
+    }
+
+    @RequestMapping(value = "user/{pseudo}", method = RequestMethod.GET)
+    @ResponseBody
+    public UserBean salonParticipate(@PathVariable("pseudo") String pseudo) {
+        return GestionUsersBean.getUser(pseudo);
+    }
+
+    @RequestMapping(value = "user/{pseudo}", method = RequestMethod.GET, produces = "text/html")
+    @ResponseBody
+    public String salonParticipatehtml(@PathVariable("pseudo") String pseudo) {
+        String s = "<h1>" + GestionUsersBean.getUser(pseudo).getPseudo() + " a participé aux salons :</h1>";
+
+        if (GestionUsersBean.getUser(pseudo).getSalons().isEmpty())
+        {
+            s = "<h1>" + GestionUsersBean.getUser(pseudo).getPseudo() + " n'a participé à aucun salon</h1>";
+        }
+        for (String salon : GestionUsersBean.getUser(pseudo).getSalons())
+        {
+            s += "- " + salon + "<br>";
+        }
+
+        return s;
+    }
+
+    @RequestMapping(value = "user/updateName/{pseudo}/{newname}", method = RequestMethod.PUT)
+    @ResponseBody
+    public UserBean modifPseudo(@PathVariable("newname") String newName, @PathVariable("pseudo") String pseudo) {
+
+        UserBean u = GestionUsersBean.getUser(pseudo);
+        if (u == null)
+            return null;
+
+        u.setPseudo(newName);
+
+        return u;
+    }
+
+    @RequestMapping(value = "user/updateName/{pseudo}/{newname}", method = RequestMethod.PUT, produces = "text/html")
+    @ResponseBody
+    public String modifPseudohtml(@PathVariable("newname") String newName, @PathVariable("pseudo") String pseudo) {
+
+        UserBean usr = GestionUsersBean.getUser(pseudo);
+        if (usr == null)
+            return "<h1>L'utilisateur est inexistant</h1>";
+
+        usr.setPseudo(newName);
+
+        return usr.getPseudo().toString();
+    }
+
+    @RequestMapping(value = "users", method = RequestMethod.GET)
+    @ResponseBody
+    public List<UserBean> listeUsers(Model model) {
+        return GestionUsersBean.getUsersList();
+    }
+
+    @RequestMapping(value = "users", method = RequestMethod.GET, produces = "text/html")
+    @ResponseBody
+    public String listeUsershtml(Model model) {
+        String s = "<div class='chat' style='width: 500px;padding: 30px;margin: 40px auto;background: #FFF;border-radius: 10px;'>";
+
+        if (GestionUsersBean.getUsersList().isEmpty())
+        {
+            s += "<h1>Aucun utilisateur ne peut accéder au chat</h1>";
+        }
+        else
+        {
+            s+= "<h1>Les utilisateurs pouvant accéder au chat sont :</h1>";
+        }
+
+        for (UserBean u : GestionUsersBean.getUsersList())
+        {
+            s += "<div>" + u.getPseudo().toString() + "</div>";
+        }
+
+        s+= "<div><a href='/tpRest/test/back-officeRest/'>Retour à l'accueil du back office</a></div></div>";
+
+
+        return s;
     }
 
     @RequestMapping(value = "users/add", method = RequestMethod.POST)
@@ -101,11 +181,11 @@ public class BOController {
 
 
         if (list != null && list.size() > messageNumber) {
-            return "<h1>Le message numéro " + messageNumber + " est : </h1><br>" + list.get(messageNumber).toString() + "<div><a href='/Chat/back-office/'>Retour à l'accueil du back office</a></div>";
+            return "<h1>Le message numéro " + messageNumber + " est : </h1><br>" + list.get(messageNumber).toString() + "<div><a href='/tpRest/test/back-officeRest/'>Retour à l'accueil du back office</a></div>";
 
         }
 
-        return "<h1> Message inexistant </h1> <div><a href='/Chat/back-office/'>Retour à l'accueil du back office</a></div>";
+        return "<h1> Message inexistant </h1> <div><a href='/tpRest/test/back-officeRest/'>Retour à l'accueil du back office</a></div>";
     }
 
     @RequestMapping(value = "messages/{salon}/nb", method = RequestMethod.GET)
@@ -121,7 +201,7 @@ public class BOController {
     public String nbMessagehtml(@PathVariable String salon, Model model) {
         List<Message> liste = this.gestionMessages.getMessagesList(salon);
 
-        return "<h1> Nombre de message du salon " + salon + ": " + liste.size() + "</h1> <div><a href='/Chat/back-office/'>Retour à l'accueil du back office</a></div>";
+        return "<h1> Nombre de message du salon " + salon + ": " + liste.size() + "</h1> <div><a href='/tpRest/test/back-officeRest/'>Retour à l'accueil du back office</a></div>";
     }
 
     @RequestMapping(value = "/messages/{salon}/from/{messageNumber}", method = RequestMethod.GET)
@@ -187,24 +267,23 @@ public class BOController {
         return m.toString();
     }
 
-   /*@RequestMapping(value = "messages/{salon}/del", method = RequestMethod.DELETE)
+   @RequestMapping(value = "messages/{salon}/del", method = RequestMethod.DELETE)
     @ResponseBody
-    public Salon del(@PathVariable String salon, Model model) {
-        updateLastModified();
-        return gestionMessages.deleteLobby(salon);
+    public Salon supprimerSalon(@PathVariable String salon, Model model) {
+
+        return gestionMessages.deleteSalon(salon);
     }
 
-    @RequestMapping(value = "messages/{lobbyName}/del", method = RequestMethod.DELETE, produces = "text/html")
+    @RequestMapping(value = "messages/{salon}/del", method = RequestMethod.DELETE, produces = "text/html")
     @ResponseBody
-    public String delhtml(@PathVariable String lobbyName, Model model) {
-        updateLastModified();
+    public String supprimerSalonhtml(@PathVariable String salon, Model model) {
 
-        Salon salon = messages.deleteLobby(lobbyName);
+        Salon sl = gestionMessages.deleteSalon(salon);
 
-        String s =  "<head><body><h1>Nom du salon supprimé : " + lobbyName + "</h1>"
+        String s =  "<head><body><h1>Salon " + salon + "supprimé : " + "</h1>"
                 + "<br><h2>Messages :</h2><br>";
 
-        for (Message m : salon.getMessages())
+        for (Message m : sl.getMessages())
         {
             s += m.toString() + "<br>";
         }
@@ -212,95 +291,96 @@ public class BOController {
         return s;
     }
 
-    @RequestMapping(value = "messages/{lobbyName}/delLast", method = RequestMethod.DELETE)
+    @RequestMapping(value = "messages/{salon}/delLast", method = RequestMethod.DELETE)
     @ResponseBody
-    public Message deleteLastMessage(@PathVariable String lobbyName, Model model) {
-        if (messages.getMessageNumber(lobbyName) <= 0) {
+    public Message supprLastMessage(@PathVariable String salon, Model model) {
+        if (gestionMessages.getMessageNumber(salon) <= 0) {
             return null;
         }
 
-        Message m = messages.getMessages(lobbyName).get(messages.getMessageNumber(lobbyName) - 1);
-        messages.getMessages(lobbyName).remove(messages.getMessageNumber(lobbyName) - 1);
+        Message msg = gestionMessages.getMessagesList(salon).get(gestionMessages.getMessageNumber(salon) - 1);
+        gestionMessages.getMessagesList(salon).remove(gestionMessages.getMessageNumber(salon) - 1);
 
-        updateLastModified();
-
-        return m;
-    }
-
-    @RequestMapping(value = "messages/{lobbyName}/delLast", method = RequestMethod.DELETE, produces = "text/html")
-    @ResponseBody
-    public String deleteLastMessagehtml(@PathVariable String lobbyName, Model model) {
-        if (messages.getMessageNumber(lobbyName) <= 0) {
-            return "<h1>Le message est inexistant</h1>";
-        }
-
-        Message m = messages.getMessages(lobbyName).get(messages.getMessageNumber(lobbyName) - 1);
-        messages.getMessages(lobbyName).remove(messages.getMessageNumber(lobbyName) - 1);
-
-        updateLastModified();
-
-        return m.toString();
-    }
-
-    @RequestMapping(value = "messages/{lobbyName}/upLast", method = RequestMethod.PUT)
-    @ResponseBody
-    public Message updateLastMessage(@PathVariable String lobbyName, @RequestParam(value = "message") String message, Model model) {
-        if (messages.getMessageNumber(lobbyName) <= 0) {
-            return null;
-        }
-
-        Message m = messages.getMessages(lobbyName).get(messages.getMessageNumber(lobbyName) - 1);
-        m.setMessage(message);
-
-        updateLastModified();
-
-        return m;
-    }
-
-    @RequestMapping(value = "messages/{lobbyName}/upLast", method = RequestMethod.PUT, produces = "text/html")
-    @ResponseBody
-    public String updateLastMessagehtml(@PathVariable String lobbyName, @RequestParam(value = "message") String message, Model model) {
-        if (gestionMessages.getMessageNumber(lobbyName) <= 0) {
-            return "<h1>Le message est inexistant</h1>";
-        }
-
-        Message m = gestionMessages.getMessagesList(lobbyName).get(gestionMessages.getMessageNumber(lobbyName) - 1);
-        m.setMessage(message);
-
-        updateLastModified();
-
-        return m.toString();
-    }*/
-
-
-
-
-   /* @PostMapping("/ajoutMessage")
-    public @ResponseBody Message ajoutMessage(@RequestParam(name="name") String name,@RequestParam(name="usr") String usr,@RequestParam(name="text") String text,@RequestParam(name="num") int num) {
-        //int num = gestionMessages.getMessageNumber(name)+1;
-        Message msg = new Message(usr,text,num);
-        gestionMessages.setMessage(msg,name);
         return msg;
-    }*/
-/*
-    @PostMapping("/users")
-    public UserBean user(@ModelAttribute UserCreateRequest request) {
-        UserBean user = new UserBean();
-        gestionUsers.addUser(user);
-        return user;
     }
 
-    @GetMapping("/message")
-    public ModelAndView message(@RequestParam(name="name") String name, @RequestParam(name="num") int num) {
-        Map<String, String> map = new HashMap<String, String>();
-        ArrayList<Message> liste = gestionMessages.getMessagesList(name);
-        for (Message m : liste) {
-            if (m.getNum() == num) {
-                map.put("message", m.getTexte());
-            }
+    @RequestMapping(value = "messages/{salon}/delLast", method = RequestMethod.DELETE, produces = "text/html")
+    @ResponseBody
+    public String supprLastMessagehtml(@PathVariable String salon, Model model) {
+        if (gestionMessages.getMessageNumber(salon) <= 0) {
+            return "<h1>Le message est inexistant</h1>";
         }
 
-        return new ModelAndView("contenuMessage", map);
-    }*/
+        Message msg = gestionMessages.getMessagesList(salon).get(gestionMessages.getMessageNumber(salon) - 1);
+        gestionMessages.getMessagesList(salon).remove(gestionMessages.getMessageNumber(salon) - 1);
+
+
+        return msg.toString();
+    }
+
+    @RequestMapping(value = "messages/{salon}/upLast", method = RequestMethod.PUT)
+    @ResponseBody
+    public Message modifLastMessage(@PathVariable String salon, @RequestParam(value = "message") String message, Model model) {
+        if (gestionMessages.getMessageNumber(salon) <= 0) {
+            return null;
+        }
+
+        Message msg = gestionMessages.getMessagesList(salon).get(gestionMessages.getMessageNumber(salon) - 1);
+        msg.setTexte(message);
+
+        return msg;
+    }
+
+    @RequestMapping(value = "messages/{salon}/upLast", method = RequestMethod.PUT, produces = "text/html")
+    @ResponseBody
+    public String modifLastMessagehtml(@PathVariable String salon, @RequestParam(value = "message") String message, Model model) {
+        if (gestionMessages.getMessageNumber(salon) <= 0) {
+            return "<h1>Le message est inexistant</h1>";
+        }
+
+        Message m = gestionMessages.getMessagesList(salon).get(gestionMessages.getMessageNumber(salon) - 1);
+        m.setTexte(message);
+
+        return m.toString();
+    }
+
+    @RequestMapping(value = "salons/list", method = RequestMethod.GET)
+    @ResponseBody
+    public List<String> listeSalons() {
+        return gestionMessages.getSalons();
+    }
+
+    @RequestMapping(value = "salons/add", method = RequestMethod.POST)
+    public void createSalonIfNew(@RequestParam(value = "salon") String salon) {
+        gestionMessages.createSalonIfNew(salon);
+    }
+
+
+    /*
+    @ExceptionHandler(Exception.class)
+    public String handleException(Exception e, Model model) {
+    	if ((BindException)e != null || (HttpMessageNotReadableException)e != null || (MethodArgumentNotValidException)e != null || (MissingServletRequestParameterException)e != null || (MissingServletRequestPartException)e != null || (TypeMismatchException)e != null) {
+    		model.addAttribute("error", 400);
+    	}
+    	else if ((ConversionNotSupportedException)e != null || (HttpMessageNotWritableException)e != null || (MissingPathVariableException)e != null)
+    	{
+    		model.addAttribute("error", 500);
+    	}
+    	else if ((HttpRequestMethodNotSupportedException)e != null) {
+    		model.addAttribute("error", 405);
+    	}
+    	else if ((HttpMediaTypeNotSupportedException)e != null) {
+    		model.addAttribute("error", 415);
+    	}
+    	else if ((HttpMediaTypeNotAcceptableException)e != null) {
+    		model.addAttribute("error", 406);
+    	}
+    	else
+    		model.addAttribute("error", 404);
+
+        System.out.println("ERROR HANDLER");
+    	return "error-page";
+    }
+*/
 
 }

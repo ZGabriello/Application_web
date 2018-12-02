@@ -15,17 +15,12 @@
 
 <%
     salon = (String) session.getAttribute("salon");
-    list = messages.getMessagesList(salon);
-
-    if (list == null) {
-        messages.setSalon(salon);
-        list = messages.getMessagesList(salon);
-    }
+    messages.setSalon(salon);
 %>
 <%
     if (request.getMethod().equals("POST")) {
 %>
 <jsp:include page= 'Stockage.jsp' />
-<% }%>
+<% } %>
 
 <jsp:forward page= 'Affichage.jsp' />

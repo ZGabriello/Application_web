@@ -31,10 +31,6 @@
         }
     }
 
-    Cookie messageNumber = new Cookie("messageNumber", Integer.toString(messages.getMessagesList((String)session.getAttribute("salon")).size()));
-    response.addCookie( messageNumber );
-
-
     out.println("<div class='message-status'>" + "<p> "+
             "Bonjour " +
             "<span class='username'>" + username + "</span>" +
@@ -42,22 +38,10 @@
             "</div>" + "<br/>");
     out.println("<div class='messages-wrapper'>");
 
-    for (Message m : messages.getMessagesList((String)session.getAttribute("salon"))) {
-        out.println(m.toString() + "<br/>");
+    for (Message msg : messages.getMessagesList()) {
+        out.println(msg.toString() + "<br/>");
     }
 
-    if (messages.getMessagesList(salon) != null) {
-
-        if (messages.getMessageNumber(salon) != 0) {
-            if ("GET".equalsIgnoreCase(request.getMethod())) {
-                if (Integer.parseInt(cookie.getValue()) == messages.getMessageNumber(salon)) {
-                    //response.setStatus(SC_NOT_MODIFIED); //breaks auto-refresh
-                }
-            }
-            cookie.setValue(Integer.toString(messages.getMessageNumber(salon)));
-            response.addCookie(cookie);
-        }
-    }
 
 %>
 </body>

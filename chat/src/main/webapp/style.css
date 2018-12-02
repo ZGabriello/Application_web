@@ -70,21 +70,7 @@
     margin-top: -3px;
 }
 .chat input[type="button"],
-.chat input[type="submit"]{
-    background: #2A88AD;
-    padding: 8px 20px 8px 20px;
-    border-radius: 5px;
-    color: #fff;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.12);
-    font: normal 30px 'Bitter', serif;
-    border: 1px solid #257C9E;
-    font-size: 15px;
-    margin-bottom: 20px;
-}
-.chat input[type="button"]:hover,
-.chat input[type="submit"]:hover{
-    background: #2A6881;
-}
+
 .chat .privacy-policy{
     float: right;
     width: 250px;
@@ -105,8 +91,6 @@
     font: normal 20px 'Bitter', serif;
     text-decoration: none;
 }
-/*</style>*/
-
 
 
 html, body {

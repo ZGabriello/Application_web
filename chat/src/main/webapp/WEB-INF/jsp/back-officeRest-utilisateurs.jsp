@@ -6,7 +6,8 @@
     <head>
         <link type="text/css" rel="stylesheet" href="../style.css" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <meta charset="UTF-8">
+        <title>Users</title>
     </head>
     <body>
         
@@ -27,7 +28,7 @@
                         </c:otherwise>
                     </c:choose>
 
-                    <a href="/tpRest/back-officeRest/">Retour à l'accueil du back office</a>
+                    <a href="/tpRest/test/back-officeRest/">Retour à l'accueil du back office</a>
                 </c:when>
                  <c:when test="${requete == 'POST'}">
 
@@ -40,9 +41,9 @@
                         </c:otherwise>
                      </c:choose>
 
-                    <a href="/tpRest/back-officeRest/users">Voir la liste des utilisateurs</a>
+                    <a href="/tpRest/test/back-officeRest/users">Voir la liste des utilisateurs</a>
                     <br>
-                    <a href="/tpRest/back-officeRest/">Retour à l'accueil du back office</a>
+                    <a href="/tpRest/test/back-officeRest/">Retour à l'accueil du back office</a>
 
                 </c:when>
             </c:choose>
