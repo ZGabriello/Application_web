@@ -1,6 +1,11 @@
 /*<link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'> <style type="text/css">
 */
 
+@font-face {
+    font-style: normal;
+    font-weight: 400;
+}
+
 .chat{
     width:500px;
     padding:30px;
@@ -133,6 +138,38 @@ input[type=submit] {
 
 input[type=submit]:hover {
     background-color: #4887a0;
+}
+
+.input-field input[type]:not([type=search]):not([type=url]):not([type=hidden]):focus {
+    border-bottom: 1px solid #1e88e5;
+    box-shadow: 0 1px 0 0 #1e88e5;
+}
+
+.input-field textarea.materialize-textarea:focus {
+    border-bottom: 1px solid #1e88e5;
+    box-shadow: 0 1px 0 0 #1e88e5;
+}
+
+.input-field textarea.materialize-textarea:focus + label {
+    color: #1e88e5;
+}
+
+.input-field input[type]:not([type=search]):not([type=url]):not([type=hidden]):focus + label {
+    color: #1e88e5;
+}
+
+.input-field input[type]:not([type=search]):not([type=url]):not([type=hidden]).valid {
+    border-bottom: 1px solid #1e88e5;
+    box-shadow: 0 1px 0 0 #1e88e5;
+}
+
+.input-field input[type]:not([type=search]):not([type=url]):not([type=hidden]).invalid {
+    border-bottom: 1px solid #f44336;
+    box-shadow: 0 1px 0 0 #f44336;
+}
+
+.input-field input[type]:not([type=search]):not([type=url]):not([type=hidden]).invalid + label {
+    color: #f44336;
 }
 
 .message-status {
