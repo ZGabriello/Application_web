@@ -45,25 +45,25 @@ Pour cela nous avons ajouté, comme demandé, les différentes requêtes vers de
 
 * Modifier le pseudo : `curl -X PUT localhost:8080/tpRest/test/back-officeRest/user/updateName/ancienNom/NouveauNom `
 
-* Récupérer la liste des messages : `curl -X GET localhost:8080/tpRest/test/back-officeRest/messages/nomDuSalon` 
+* Récupérer la liste des messages : `curl -X GET localhost:8080/tpRest/test/back-officeRest/salon/nomDuSalon` 
 
-* Récupérer le nombre de messages : `curl -X GET localhost:8080/tpRest/test/back-officeRest/messages/nomDuSalon/nb`
+* Récupérer le nombre de messages : `curl -X GET localhost:8080/tpRest/test/back-officeRest/salon/nomDuSalon/nb`
 
-* Récupérer tous les messages envoyés après un id données : `curl -X GET localhost:8080/tpRest/test/back-officeRest/messages/nomDuSalon/from/idDuMessage `
+* Récupérer tous les messages envoyés après un id données : `curl -X GET localhost:8080/tpRest/test/back-officeRest/salon/nomDuSalon/from/idDuMessage `
 
-* Ajouter un message :` curl -X POST -d "user=nomUtilisateur" -d "message=message" localhost:8080/tpRest/test/back-officeRest/messages/nomDuSalon/add `
+* Ajouter un message :` curl -X POST -d "user=nomUtilisateur" -d "message=message" localhost:8080/tpRest/test/back-officeRest/salon/nomDuSalon/add `
 
-* Supprimer un salon : `curl -X DELETE localhost:8080/tpRest/test/back-officeRest/messages/nomDuSalon/del `
+* Supprimer un salon : `curl -X DELETE localhost:8080/tpRest/test/back-officeRest/salon/nomDuSalon/del `
 
-* Récupérer les informations du message (auteur, texte) :` curl -X GET localhost:8080/tpRest/test/back-officeRest/messages/nomDuSalon/numeroDuMessage `
+* Récupérer les informations du message (auteur, texte) :` curl -X GET localhost:8080/tpRest/test/back-officeRest/message/nomDuSalon/numeroDuMessage `
  
-* Modifier le contenu du dernier message d'un salon : `curl -X PUT localhost:8080/tpRest/test/back-officeRest/messages/nomDuSalon/upLast?message=newMessage `
+* Modifier le contenu du dernier message d'un salon : `curl -X PUT localhost:8080/tpRest/test/back-officeRest/message/nomDuSalon/upLast?message=newMessage `
 
-* Supprimer le dernier message d'un salon : `curl -X DELETE localhost:8080/tpRest/test/back-officeRest/messages/nomDuSalon/delLast `
+* Supprimer le dernier message d'un salon : `curl -X DELETE localhost:8080/tpRest/test/back-officeRest/message/nomDuSalon/delLast `
 
-Afin de demander le contenu en JSON, en ligne de commande il est possible de faire comme cela : `curl -X GET -H "Accept:application/json" localhost:8080/tpRest/test/back-officeRest/messages/nomDuSalon`
+Afin de demander le contenu en JSON, en ligne de commande il est possible de faire comme cela : `curl -X GET -H "Accept:application/json" localhost:8080/tpRest/test/back-officeRest/salon/nomDuSalon`
 
-De même pour demander le contenu en XML : `curl -X GET -H "Accept:application/xml" localhost:8080/tpRest/test/back-officeRest/messages/nomDuSalon`
+De même pour demander le contenu en XML : `curl -X GET -H "Accept:application/xml" localhost:8080/tpRest/test/back-officeRest/salon/nomDuSalon`
 
 Si rien n'est précisé, le contenu est renvoyé en HMTL
 

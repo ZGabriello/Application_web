@@ -57,23 +57,36 @@ public class HelloController {
     }
 
     @RequestMapping(value = "users/add", method = RequestMethod.POST)
-    public String postUsers(@RequestParam("username") String nomUtilisateur, Model model) {
+    public UserBean postUsers(@RequestParam("username") String nomUtilisateur, Model model) {
         model.addAttribute("requete", "POST");
 
         for (UserBean u : GestionUsersBean.getUsersList()) {
             if (u.getPseudo().equals(nomUtilisateur)) {
                 model.addAttribute("user", "dejaPresentDansLaListe");
 
-                return "back-officeRest-utilisateurs";
+                return u;
             }
         }
 
         GestionUsersBean.addUser(nomUtilisateur);
         model.addAttribute("user", nomUtilisateur);
 
-        return "back-officeRest-utilisateurs";
+        return GestionUsersBean.getUser(nomUtilisateur);
     }
 
+    @RequestMapping(value = "users/add", method = RequestMethod.POST, produces = "text/html")
+    @ResponseBody
+    public String postUsershtml(@RequestParam("username") String nomUtilisateur, Model model) {
+        for (UserBean u : GestionUsersBean.getUsersList()) {
+            if (u.getPseudo().equals(nomUtilisateur)) {
+
+                return "<h1>L'utilisateur est déjà dans la liste</h1>";
+            }
+        }
+        GestionUsersBean.addUser(nomUtilisateur);
+
+        return "<h1>L'utilisateur "+ GestionUsersBean.getUser(nomUtilisateur) + " a bien été ajouté à la liste</h1>";
+    }
     /*@Autowired
     public HelloController(HelloBean helloBean) {
         this.helloBean = helloBean;

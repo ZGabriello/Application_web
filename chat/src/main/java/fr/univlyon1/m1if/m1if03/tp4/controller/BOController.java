@@ -27,15 +27,6 @@ public class BOController {
         this.gestionMessages = new GestionMessages();
     }
 
-
-    @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
-    public String getBackOffice(Model model) {
-
-        model.addAttribute("salons", this.gestionMessages.getSalons());
-
-        return "back-officeRest";
-    }
-
     @RequestMapping(value = "user/{pseudo}", method = RequestMethod.GET)
     @ResponseBody
     public UserBean salonParticipate(@PathVariable("pseudo") String pseudo) {
@@ -85,56 +76,40 @@ public class BOController {
         return usr.getPseudo().toString();
     }
 
-    @RequestMapping(value = "users", method = RequestMethod.GET)
-    @ResponseBody
-    public List<UserBean> listeUsers(Model model) {
-        return GestionUsersBean.getUsersList();
-    }
-
-    @RequestMapping(value = "users", method = RequestMethod.GET, produces = "text/html")
-    @ResponseBody
-    public String listeUsershtml(Model model) {
-        String s = "<div class='chat' style='width: 500px;padding: 30px;margin: 40px auto;background: #FFF;border-radius: 10px;'>";
-
-        if (GestionUsersBean.getUsersList().isEmpty())
-        {
-            s += "<h1>Aucun utilisateur ne peut accéder au chat</h1>";
-        }
-        else
-        {
-            s+= "<h1>Les utilisateurs pouvant accéder au chat sont :</h1>";
-        }
-
-        for (UserBean u : GestionUsersBean.getUsersList())
-        {
-            s += "<div>" + u.getPseudo().toString() + "</div>";
-        }
-
-        s+= "<div><a href='/tpRest/test/back-officeRest/'>Retour à l'accueil du back office</a></div></div>";
-
-
-        return s;
-    }
 
     @RequestMapping(value = "users/add", method = RequestMethod.POST)
-    public String postUsers(@RequestParam("username") String nomUtilisateur, Model model) {
+    public UserBean postUsers(@RequestParam("username") String nomUtilisateur, Model model) {
         model.addAttribute("requete", "POST");
 
         for (UserBean u : GestionUsersBean.getUsersList()) {
             if (u.getPseudo().equals(nomUtilisateur)) {
                 model.addAttribute("user", "dejaPresentDansLaListe");
 
-                return "back-officeRest-utilisateurs";
+                return u;
             }
         }
 
         GestionUsersBean.addUser(nomUtilisateur);
         model.addAttribute("user", nomUtilisateur);
 
-        return "back-officeRest-utilisateurs";
+        return GestionUsersBean.getUser(nomUtilisateur);
     }
 
-   @RequestMapping(value = "messages/{salon}", method = RequestMethod.GET)
+    @RequestMapping(value = "users/add", method = RequestMethod.POST, produces = "text/html")
+    @ResponseBody
+    public String postUsershtml(@RequestParam("username") String nomUtilisateur, Model model) {
+        for (UserBean u : GestionUsersBean.getUsersList()) {
+            if (u.getPseudo().equals(nomUtilisateur)) {
+
+                return "<h1>L'utilisateur est déjà dans la liste</h1>";
+            }
+        }
+        GestionUsersBean.addUser(nomUtilisateur);
+
+        return "<h1>L'utilisateur "+ GestionUsersBean.getUser(nomUtilisateur) + " a bien été ajouté à la liste</h1>";
+    }
+
+   @RequestMapping(value = "salon/{salon}", method = RequestMethod.GET)
    @ResponseBody
    public List<Message> listeMessages(@PathVariable String salon, Model model) {
        List<Message> liste = this.gestionMessages.getMessagesList(salon);
@@ -142,7 +117,7 @@ public class BOController {
        return liste;
    }
 
-    @RequestMapping(value = "messages/{salon}", method = RequestMethod.GET, produces = "text/html")
+    @RequestMapping(value = "salon/{salon}", method = RequestMethod.GET, produces = "text/html")
     @ResponseBody
     public String listeMessageshtml(@PathVariable String salon, Model model) {
         List<Message> liste = this.gestionMessages.getMessagesList(salon);
@@ -162,33 +137,7 @@ public class BOController {
     }
 
 
-    @RequestMapping(value = "/messages/{salon}/{messageNumber}", method = RequestMethod.GET)
-    @ResponseBody
-    public Message getMessage(@PathVariable String salon, @PathVariable Integer messageNumber, Model model) {
-        List<Message> list = this.gestionMessages.getMessagesList(salon);
-
-        if (list != null && list.size() > messageNumber) {
-            return list.get(messageNumber);
-        }
-
-        return null;
-    }
-
-    @RequestMapping(value = "/messages/{salon}/{messageNumber}", method = RequestMethod.GET, produces = "text/html")
-    @ResponseBody
-    public String getMessagehtml(@PathVariable String salon, @PathVariable Integer messageNumber, Model model) {
-        List<Message> list = this.gestionMessages.getMessagesList(salon);
-
-
-        if (list != null && list.size() > messageNumber) {
-            return "<h1>Le message numéro " + messageNumber + " est : </h1><br>" + list.get(messageNumber).toString() + "<div><a href='/tpRest/test/back-officeRest/'>Retour à l'accueil du back office</a></div>";
-
-        }
-
-        return "<h1> Message inexistant </h1> <div><a href='/tpRest/test/back-officeRest/'>Retour à l'accueil du back office</a></div>";
-    }
-
-    @RequestMapping(value = "messages/{salon}/nb", method = RequestMethod.GET)
+    @RequestMapping(value = "salon/{salon}/nb", method = RequestMethod.GET)
     @ResponseBody
     public int nbMessage(@PathVariable String salon, Model model) {
         List<Message> liste = this.gestionMessages.getMessagesList(salon);
@@ -196,15 +145,15 @@ public class BOController {
         return liste.size();
     }
 
-    @RequestMapping(value = "messages/{salon}/nb", method = RequestMethod.GET, produces = "text/html")
+    @RequestMapping(value = "salon/{salon}/nb", method = RequestMethod.GET, produces = "text/html")
     @ResponseBody
     public String nbMessagehtml(@PathVariable String salon, Model model) {
         List<Message> liste = this.gestionMessages.getMessagesList(salon);
 
-        return "<h1> Nombre de message du salon " + salon + ": " + liste.size() + "</h1> <div><a href='/tpRest/test/back-officeRest/'>Retour à l'accueil du back office</a></div>";
+        return "<h1> Nombre de message du salon " + salon + ": " + liste.size() + "</h1> ";
     }
 
-    @RequestMapping(value = "/messages/{salon}/from/{messageNumber}", method = RequestMethod.GET)
+    @RequestMapping(value = "/salon/{salon}/from/{messageNumber}", method = RequestMethod.GET)
     @ResponseBody
     public List<Message> messageFrom(@PathVariable String salon, @PathVariable Integer messageNumber, Model model) {
         List<Message> list = this.gestionMessages.getMessagesList(salon);
@@ -217,7 +166,7 @@ public class BOController {
         return res;
     }
 
-    @RequestMapping(value = "/messages/{salon}/from/{messageNumber}", method = RequestMethod.GET, produces = "text/html")
+    @RequestMapping(value = "/salon/{salon}/from/{messageNumber}", method = RequestMethod.GET, produces = "text/html")
     @ResponseBody
     public String messageFromhtml(@PathVariable String salon, @PathVariable Integer messageNumber, Model model) {
         List<Message> list = this.gestionMessages.getMessagesList(salon);
@@ -231,7 +180,7 @@ public class BOController {
         return s;
     }
 
-    @RequestMapping(value = "messages/{salon}/add", method = RequestMethod.POST)
+    @RequestMapping(value = "salon/{salon}/add", method = RequestMethod.POST)
     @ResponseBody
     public Message ajoutMessage(@PathVariable String salon, @RequestParam(value = "user") String username, @RequestParam(value = "message") String message, Model model) {
         List<Message> liste = this.gestionMessages.getMessagesList(salon);
@@ -249,7 +198,7 @@ public class BOController {
         return m;
     }
 
-    @RequestMapping(value = "messages/{salon}/add", method = RequestMethod.POST, produces = "text/html")
+    @RequestMapping(value = "salon/{salon}/add", method = RequestMethod.POST, produces = "text/html")
     @ResponseBody
     public String ajoutMessagehtml(@PathVariable String salon, @RequestParam(value = "user") String username, @RequestParam(value = "message") String message, Model model) {
         List<Message> liste = this.gestionMessages.getMessagesList(salon);
@@ -267,14 +216,14 @@ public class BOController {
         return m.toString();
     }
 
-   @RequestMapping(value = "messages/{salon}/del", method = RequestMethod.DELETE)
+   @RequestMapping(value = "salon/{salon}/del", method = RequestMethod.DELETE)
     @ResponseBody
     public Salon supprimerSalon(@PathVariable String salon, Model model) {
 
         return gestionMessages.deleteSalon(salon);
     }
 
-    @RequestMapping(value = "messages/{salon}/del", method = RequestMethod.DELETE, produces = "text/html")
+    @RequestMapping(value = "salon/{salon}/del", method = RequestMethod.DELETE, produces = "text/html")
     @ResponseBody
     public String supprimerSalonhtml(@PathVariable String salon, Model model) {
 
@@ -291,7 +240,34 @@ public class BOController {
         return s;
     }
 
-    @RequestMapping(value = "messages/{salon}/delLast", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/message/{salon}/{messageNumber}", method = RequestMethod.GET)
+    @ResponseBody
+    public Message getMessage(@PathVariable String salon, @PathVariable Integer messageNumber, Model model) {
+        List<Message> list = this.gestionMessages.getMessagesList(salon);
+
+        if (list != null && list.size() > messageNumber) {
+            return list.get(messageNumber);
+        }
+
+        return null;
+    }
+
+    @RequestMapping(value = "/message/{salon}/{messageNumber}", method = RequestMethod.GET, produces = "text/html")
+    @ResponseBody
+    public String getMessagehtml(@PathVariable String salon, @PathVariable Integer messageNumber, Model model) {
+        List<Message> list = this.gestionMessages.getMessagesList(salon);
+
+
+        if (list != null && list.size() > messageNumber) {
+            return "<h1>Le message numéro " + messageNumber + " est : </h1><br>" + list.get(messageNumber).toString();
+
+        }
+
+        return "<h1> Message inexistant </h1>" ;
+    }
+
+
+    @RequestMapping(value = "message/{salon}/delLast", method = RequestMethod.DELETE)
     @ResponseBody
     public Message supprLastMessage(@PathVariable String salon, Model model) {
         if (gestionMessages.getMessageNumber(salon) <= 0) {
@@ -304,7 +280,7 @@ public class BOController {
         return msg;
     }
 
-    @RequestMapping(value = "messages/{salon}/delLast", method = RequestMethod.DELETE, produces = "text/html")
+    @RequestMapping(value = "message/{salon}/delLast", method = RequestMethod.DELETE, produces = "text/html")
     @ResponseBody
     public String supprLastMessagehtml(@PathVariable String salon, Model model) {
         if (gestionMessages.getMessageNumber(salon) <= 0) {
@@ -318,7 +294,7 @@ public class BOController {
         return msg.toString();
     }
 
-    @RequestMapping(value = "messages/{salon}/upLast", method = RequestMethod.PUT)
+    @RequestMapping(value = "message/{salon}/upLast", method = RequestMethod.PUT)
     @ResponseBody
     public Message modifLastMessage(@PathVariable String salon, @RequestParam(value = "message") String message, Model model) {
         if (gestionMessages.getMessageNumber(salon) <= 0) {
@@ -331,7 +307,7 @@ public class BOController {
         return msg;
     }
 
-    @RequestMapping(value = "messages/{salon}/upLast", method = RequestMethod.PUT, produces = "text/html")
+    @RequestMapping(value = "message/{salon}/upLast", method = RequestMethod.PUT, produces = "text/html")
     @ResponseBody
     public String modifLastMessagehtml(@PathVariable String salon, @RequestParam(value = "message") String message, Model model) {
         if (gestionMessages.getMessageNumber(salon) <= 0) {
@@ -342,17 +318,6 @@ public class BOController {
         m.setTexte(message);
 
         return m.toString();
-    }
-
-    @RequestMapping(value = "salons/list", method = RequestMethod.GET)
-    @ResponseBody
-    public List<String> listeSalons() {
-        return gestionMessages.getSalons();
-    }
-
-    @RequestMapping(value = "salons/add", method = RequestMethod.POST)
-    public void createSalonIfNew(@RequestParam(value = "salon") String salon) {
-        gestionMessages.createSalonIfNew(salon);
     }
 
 
