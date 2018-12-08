@@ -17,7 +17,7 @@ Dans certaines questions, plusieurs choix d'implémentation étaient possibles.
 
 Concernant le refresh des pages toutes les 5 secondes, nous avons choisi de le mettre dans le header de la page.
 
-Pour la partie "Refactoring de l'application", nous avons choisi d'utiliser le "MVC Pull-based" car c'est cette méthode qui nous a semblé la plus simple et la plus intuitive dans la façon dont on devait l'implémenter.
+Pour la partie "Refactoring de l'application", nous avons choisi d'utiliser le pattern "MVC Pull-based" car cette méthode nous a semblé la plus simple à implémenter.
 
 
 TP3 - Spring MVC
