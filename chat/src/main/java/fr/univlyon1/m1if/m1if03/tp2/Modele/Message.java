@@ -33,7 +33,11 @@ public class Message {
     }
 
     public String toString(){
-        return user.getPseudo() + " : " + texte;
+        if (!"".equals(this.texte)) {
+            return user.getPseudo() + " : " + texte;
+        } else {
+            return this.user + " a rejoint la salle !";
+        }
     }
 
 }

@@ -16,6 +16,10 @@ function loadXMLAsynchroneously(method, request, parameters, id)
     //envoi de la requ�te de chargement du fichier XML au serveur
 	//le dernier param�tre est true ; le chargement du fichier se fera en asynchrone
     xhr.open(method, request, true);
+
+
+    xhr.setRequestHeader('Accept', 'application/xml');
+
     //encodage des param�tres dans la requ�te, si la m�thode est post
 	if(parameters && (method == "post" || method == "POST"))
 		xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
@@ -55,7 +59,7 @@ function getXMLDocument(xhr, XMLDoc, id)
 				XMLDoc= parseFromString(xhr.responseText);
 			}
 			//D�commentez la ligne suivante pour voir le contenu XML obtenu (ne marche qu'avec FF)
-			alert((new XMLSerializer()).serializeToString(XMLDoc));
+			//alert((new XMLSerializer()).serializeToString(XMLDoc));
 			
 			//appel de la fonction de traitement qui va ajouter les donn�es au corps de la page (� �crire)
 			traiteXML (XMLDoc, id);

@@ -12,8 +12,8 @@
 		<script>
 			var pseudo;
 			var salon;
-			var templateJoined = "<b>{{author}}</b> a rejoint la salle !<br/>";
-			var templateMessage = "<b>{{author}}</b>: {{message}}<br/>";
+			var templateJoined = "<b>{{user}}</b> a rejoint la salle !<br/>";
+			var templateMessage = "<b>{{user}}</b>: {{message}}<br/>";
 			
 			var messageNumber = 0;
 
@@ -52,7 +52,7 @@
 				
 				for (var i = 0; i < data.length; i++) {
 					var message = {
-						author: data[i].author.nom,
+						user: data[i].user.nom,
 						message: data[i].message
 					};
 					
