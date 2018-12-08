@@ -68,5 +68,4 @@ De même pour demander le contenu en XML : `curl -X GET -H "Accept:application/x
 Si rien n'est précisé, le contenu est renvoyé en HMTL
 
 
-Le filtre à été modifié mais ne marche pas complètement. Si l'utilisateur ne rentre aucun des champs(pseudo et salon) il est quand même redirigé sur l'interface mais ne peut pas ajouter de message.
-Seuls les utilisateurs ajoutés à la liste peuvent se connecter et ajouter des messages au salon créé.
+Le filtre à été modifié et est à présent fonctionnel.
