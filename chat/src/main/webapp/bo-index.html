@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link type="text/css" rel="stylesheet" href="../style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/ajax.js"></script>
+</head>
+<body onload="onBodyLoad()">
+<script>
+    function onBodyLoad() {
+        document.getElementById('pseudo').innerHTML = localStorage.getItem("pseudo");
+        refreshSalonList();
+    }
+
+    function refreshSalonList() {
+        loadXMLAsynchroneously("get", "test/back-officeRest/salons/list", null, salons);
+    }
+
+    function onSalonAdd() {
+        var input = document.getElementById("salon");
+        if (input.value === "")
+            return;
+
+        // Ajout du salon
+        sendRequestAsynchroneously("post", "test/back-officeRest/salons/add", "salon=" + input.value);
+        // Ajout du salon au stockage client
+        localStorage.setItem("salon", input.value);
+
+        refreshSalonList();
+
+        input.value = "";
+    }
+
+    function onLogout() {
+        localStorage.removeItem("pseudo");
+    }
+
+    function traiteXML(XMLDoc, id) {
+        var salons = document.getElementById("salons");
+        salons.innerHTML = "";
+
+        var liste = XMLDoc.activeElement.children;
+        for (var i = 0; i < liste.length; i++) {
+            var li = document.createElement("li");
+
+            var a = document.createElement("a");
+            a.innerHTML = liste[i].innerHTML;
+            a.href = "salon.html";
+            a.onclick = function () {
+                localStorage.setItem("salon", this.innerHTML);
+            }
+
+            li.appendChild(a);
+
+            salons.appendChild(li);
+        }
+    }
+</script>
+<div class="chat" style="width: 500px;padding: 30px;margin: 40px auto;background: #FFF;border-radius: 10px;">
+    <h1><span>Vous êtes connecté en tant que <b id='pseudo'></b>.</span></h1>
+
+    <div class="section">Liste des salons disponibles</div>
+
+    <ul id="salons"></ul>
+
+    <input type="button" onclick="refreshSalonList();" value="Rafraichir">
+
+    <div class="section">Ajouter un salon</div>
+    <div class="inner-wrap">
+        <input type="text" id="salon" name="salon" placeholder="Nom du salon"/>
+    </div>
+    <div class="button-section">
+        <input type="button" onclick="onSalonAdd();" value="Créer un salon">
+    </div>
+
+    <div>
+        <a onclick="onLogout();" href="Deco">Déconnexion</a>
+    </div>
+</div>
+
+</body>
+</html>
+

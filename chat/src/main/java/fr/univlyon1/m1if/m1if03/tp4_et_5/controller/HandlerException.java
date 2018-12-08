@@ -1,4 +1,4 @@
-package fr.univlyon1.m1if.m1if03.tp4.controller;
+package fr.univlyon1.m1if.m1if03.tp4_et_5.controller;
 
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.servlet.ModelAndView;

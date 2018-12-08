@@ -25,9 +25,6 @@ public class GestionMessages {
         this.lobby = lobby;
     }
 
-   /* public void setSalon(String salon){
-        messages.put(salon, new ArrayList<Message>());
-    }*/
 
     public void setSalon(String nom) {
         for (Salon s : salons) {
@@ -89,7 +86,7 @@ public class GestionMessages {
     }
 
     public int getMessageNumber(String salon){
-        //return messages.get(salon).size();
+
         for (Salon s : salons) {
             if (s.getNom().equals(salon)) {
                 return s.getMessages().size();

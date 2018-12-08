@@ -1,4 +1,4 @@
-package fr.univlyon1.m1if.m1if03.tp4.controller;
+package fr.univlyon1.m1if.m1if03.tp4_et_5.controller;
 
 import fr.univlyon1.m1if.m1if03.tp2.Modele.GestionMessages;
 import fr.univlyon1.m1if.m1if03.tp2.Modele.Message;
@@ -19,13 +19,21 @@ import java.util.List;
 public class BOController {
 
     @Autowired
-    private ServletContext servletContext;
     private GestionMessages gestionMessages;
 
     public BOController() {
 
         this.gestionMessages = new GestionMessages();
     }
+
+    @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
+    public String getBackOffice(Model model) {
+
+        model.addAttribute("salons", this.gestionMessages.getSalons());
+
+        return "back-officeRest";
+    }
+
 
     @RequestMapping(value = "user/{pseudo}", method = RequestMethod.GET)
     @ResponseBody
@@ -73,41 +81,60 @@ public class BOController {
 
         usr.setPseudo(newName);
 
-        return usr.getPseudo().toString();
+        return usr.getPseudo();
     }
 
 
+
+    @RequestMapping(value = "users/list", method = RequestMethod.GET)
+    @ResponseBody
+    public List<UserBean> listeUsers(Model model) {
+        return GestionUsersBean.getUsersList();
+    }
+
+    @RequestMapping(value = "users/list", method = RequestMethod.GET, produces = "text/html")
+    @ResponseBody
+    public String listeUsershtml(Model model) {
+        String s = "<div class='chat' style='width: 500px;padding: 30px;margin: 40px auto;background: #FFF;border-radius: 10px;'>";
+
+        if (GestionUsersBean.getUsersList().isEmpty())
+        {
+            s += "<h1>Aucun utilisateur ne peut accéder au chat</h1>";
+        }
+        else
+        {
+            s+= "<h1>Les utilisateurs pouvant accéder au chat sont :</h1>";
+        }
+
+        for (UserBean u : GestionUsersBean.getUsersList())
+        {
+            s += "<div>" + u.getPseudo().toString() + "</div>";
+        }
+
+        s+= "<div><a href='/tpAjax/test/back-officeRest/'>Retour à l'accueil du back office</a></div></div>";
+
+
+        return s;
+    }
+
     @RequestMapping(value = "users/add", method = RequestMethod.POST)
-    public UserBean postUsers(@RequestParam("username") String nomUtilisateur, Model model) {
+    public String postUsers(@RequestParam("username") String nomUtilisateur, Model model) {
         model.addAttribute("requete", "POST");
 
         for (UserBean u : GestionUsersBean.getUsersList()) {
             if (u.getPseudo().equals(nomUtilisateur)) {
                 model.addAttribute("user", "dejaPresentDansLaListe");
 
-                return u;
+                return "back-officeRest-utilisateurs";
             }
         }
 
         GestionUsersBean.addUser(nomUtilisateur);
         model.addAttribute("user", nomUtilisateur);
 
-        return GestionUsersBean.getUser(nomUtilisateur);
+        return "back-officeRest-utilisateurs";
     }
 
-    @RequestMapping(value = "users/add", method = RequestMethod.POST, produces = "text/html")
-    @ResponseBody
-    public String postUsershtml(@RequestParam("username") String nomUtilisateur, Model model) {
-        for (UserBean u : GestionUsersBean.getUsersList()) {
-            if (u.getPseudo().equals(nomUtilisateur)) {
-
-                return "<h1>L'utilisateur est déjà dans la liste</h1>";
-            }
-        }
-        GestionUsersBean.addUser(nomUtilisateur);
-
-        return "<h1>L'utilisateur "+ GestionUsersBean.getUser(nomUtilisateur) + " a bien été ajouté à la liste</h1>";
-    }
 
    @RequestMapping(value = "salon/{salon}", method = RequestMethod.GET)
    @ResponseBody
@@ -263,7 +290,7 @@ public class BOController {
 
         }
 
-        return "<h1> Message inexistant </h1>" ;
+        return "<h1> Message inexistant </h1><div><a href='/tpAjax/test/back-officeRest/'>Retour à l'accueil du back office</a></div>";
     }
 
 
@@ -318,6 +345,18 @@ public class BOController {
         m.setTexte(message);
 
         return m.toString();
+    }
+
+
+    @RequestMapping(value = "salons/list", method = RequestMethod.GET)
+    @ResponseBody
+    public List<String> listeSalons() {
+        return gestionMessages.getSalons();
+    }
+
+    @RequestMapping(value = "salons/add", method = RequestMethod.POST)
+    public void addSalon(@RequestParam(value = "salon") String salon) {
+        gestionMessages.createSalonIfNew(salon);
     }
 
     /*

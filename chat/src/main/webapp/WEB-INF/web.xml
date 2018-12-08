@@ -37,8 +37,8 @@
 
     <filter-mapping>
         <filter-name>Filter</filter-name>
-        <!--<url-pattern>/index.html</url-pattern>-->
         <url-pattern>/interface.html</url-pattern>
+        <url-pattern>/bo-index.html</url-pattern>
         <url-pattern>/Affichage.jsp</url-pattern>
         <url-pattern>/Messages.jsp</url-pattern>
         <url-pattern>/Stockage.jsp</url-pattern>

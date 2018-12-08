@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Salon</title>
+                <link type="text/css" rel="stylesheet" href="style.css" />
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
+	</head>
+	<body onload="onLoad();">
+		<script>
+			var pseudo;
+			var salon;
+			var templateJoined = "<b>{{author}}</b> a rejoint la salle !<br/>";
+			var templateMessage = "<b>{{author}}</b>: {{message}}<br/>";
+			
+			var messageNumber = 0;
+
+			function onLoad() {
+				pseudo = localStorage.getItem("pseudo");
+				salon = localStorage.getItem("salon");
+				$("#pseudo").text(pseudo);
+				$("#salon").text(salon);
+				
+				// Ajout d'un message "a rejoint la salle"
+				$.ajax({
+					url: "test/back-officeRest/salon/" + salon + "/add",
+					type: "POST",
+					data: {user: pseudo, message: ""},
+					beforeSend: function (xhr) {
+                        xhr.setRequestHeader("Accept", "application/json");
+                    }
+				});
+				
+				$.ajax({
+					url: "test/back-officeRest/salon/" + salon,
+					type: "GET",
+					beforeSend: function (xhr) {
+                        xhr.setRequestHeader("Accept", "application/json");
+                    },
+					success: function (data) {
+						addMessages(data);
+                    }
+				});
+				
+				setInterval(function () {loadNewMessages();}, 5000);
+			}
+			
+			function addMessages(data) {
+				messageNumber += data.length;
+				
+				for (var i = 0; i < data.length; i++) {
+					var message = {
+						author: data[i].author.nom,
+						message: data[i].message
+					};
+					
+					var template = message.message === "" ? templateJoined : templateMessage;
+					var msg = document.createElement("p");
+					msg.innerHTML = Mustache.render(template, message);
+					$("#listeMessage").append(msg);
+				}
+			}
+			
+			function loadNewMessages() {
+				$.ajax({
+					url: "test/back-officeRest/salon/" + salon + "/from/" + (messageNumber-1),
+					type: "GET",
+					beforeSend: function (xhr) {
+                        xhr.setRequestHeader("Accept", "application/json");
+                    },
+					success: function (data) {
+						addMessages(data);
+                    }
+				});
+			}
+			
+			function sendMessage() {
+				var toSend = $("#toSend").val();
+				if (toSend === "")
+					return;
+				
+				$.ajax({
+					url: "test/back-officeRest/salon/" + salon + "/add",
+					type: "POST",
+					data: {user: pseudo, message: toSend},
+					beforeSend: function (xhr) {
+                        xhr.setRequestHeader("Accept", "application/json");
+                    },
+					success: function (data) {
+						addMessages([data]);
+                    }
+				});
+				
+				$("#toSend").val("");
+			}
+			
+			function deleteMessage() {
+				$.ajax({
+					url: "test/back-officeRest/message/" + salon + "/delLast",
+					type: "DELETE",
+					beforeSend: function (xhr) {
+                        xhr.setRequestHeader("Accept", "application/json");
+                    },
+					success: function () {
+						$("#listeMessage").children().last().remove();
+						messageNumber--;
+                    }
+				});
+			}
+			
+			function onLeave() {
+				localStorage.removeItem("salon");
+			}
+
+		</script>
+		
+		<div class="chat" style="width: 500px;padding: 30px;margin: 40px auto;background: #FFF;border-radius: 10px;">
+			<h1>Chat <span>(connecté en tant que <b id="pseudo"></b> au salon <b id="salon"></b>)</span></h1>
+
+
+			<div id="listeMessage"></div>
+
+			<div class="inner-wrap">
+				<input id="toSend" type="text" placeholder="Message..."/>
+				<input type="submit" onclick="sendMessage();" value="Envoyer"/>
+			</div>
+			
+			<div class="inner-wrap">
+				<h2>Supprimer le dernier message</h2>
+				<input type="submit" onclick="deleteMessage();" value="Supprimer"/>
+			</div>
+
+			<div>
+				<a onclick="onLeave();" href="bo-index.html">Quitter le salon</a>
+			</div>
+		</div>
+	</body>
+</html>

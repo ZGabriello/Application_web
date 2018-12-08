@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html lang="fr">
 <link href="style.css" rel="stylesheet" media="all" type="text/css">
+<script src="js/ajax.js"></script>
 <head>
     <meta charset="UTF-8">
     <title>Chatons !</title>
 </head>
-<body>
+<script>
+    function onSubmitClick() {
+        localStorage.setItem("pseudo", document.getElementById("pseudo2").value);
+    }
+</script>
 <h1>Bienvenue sur Chatons.org</h1>
+<br>
+<div class="section"><h3>Version 1 du chat</h3></div>
 <form method="post" action="interface.html">
     <p>
         Entrez votre pseudo :
@@ -16,6 +23,21 @@
         <input type="submit" value="Connexion">
     </p>
 </form>
+
+<p><a href="addUser.html">Ajouter un utilisateur</a></p>
+
+
+<br>
+<div class="section"><h3>Version 2 du chat (Ajax)</h3></div>
+<form method="post" action="bo-index.html">
+    <p>
+        Entrez votre pseudo :
+        <input id="pseudo2" type="text" name="pseudo2">
+        <input type="submit" onclick="onSubmitClick();"/>
+    </p>
+</form>
+
+
 
 <p><a href="addUser.html">Ajouter un utilisateur</a></p>
 
