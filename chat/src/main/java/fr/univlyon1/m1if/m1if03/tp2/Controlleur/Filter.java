@@ -23,7 +23,7 @@ public class Filter implements javax.servlet.Filter {
                 {
                     HttpSession session = ((HttpServletRequest) req).getSession();
 
-                    session.setAttribute("login", req.getParameter("pseudo"));
+                    session.setAttribute("pseudo", req.getParameter("pseudo"));
                     session.setAttribute("salon", req.getParameter("salon"));
 
                     filterChain.doFilter(req, res);
