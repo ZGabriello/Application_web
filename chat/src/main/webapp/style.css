@@ -10,6 +10,16 @@ body {
     font-size: 100%;
 }
 
+h1 {
+    text-align: center;
+    color: blue;
+}
+
+h2 {
+    text-align: center;
+    color: blue;
+}
+
 #interf {
     border: none;
     width: 100%;
