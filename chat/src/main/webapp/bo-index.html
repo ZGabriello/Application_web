@@ -57,23 +57,27 @@
         }
     }
 </script>
-<div class="chat" style="width: 500px;padding: 30px;margin: 40px auto;background: #FFF;border-radius: 10px;">
-    <h1><span>Vous êtes connecté en tant que <b id='pseudo'></b>.</span></h1>
 
-    <div class="section">Liste des salons disponibles</div>
+<h1>Chatons.org</h1>
+<hr>
+<h2>Vous êtes connecté en tant que <b id='pseudo'></b>.</h2>
+
+<div class="chat" style="width: 500px;margin: 40px auto;background: #FFF;border-radius: 10px;text-align: center;">
+    <h4>Liste des salons disponibles :</h4>
 
     <ul id="salons"></ul>
 
     <input type="button" onclick="refreshSalonList();" value="Rafraichir">
+    <br>
 
-    <div class="section">Ajouter un salon</div>
-    <div class="inner-wrap">
+    <h4>Ajouter un salon : </h4>
+    <div>
         <input type="text" id="salon" name="salon" placeholder="Nom du salon"/>
     </div>
-    <div class="button-section">
+    <div>
         <input type="button" onclick="onSalonAdd();" value="Créer un salon">
     </div>
-
+    <br>
     <div>
         <a onclick="onLogout();" href="Deco">Déconnexion</a>
     </div>

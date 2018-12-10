@@ -13,7 +13,7 @@
 			var pseudo;
 			var salon;
 			var templateJoined = "<b>{{user}}</b> a rejoint la salle !<br/>";
-			var templateMessage = "<b>{{user}}</b>: {{message}}<br/>";
+			var templateMessage = "<b>{{user}}</b>: {{texte}}<br/>";
 			
 			var messageNumber = 0;
 
@@ -27,7 +27,7 @@
 				$.ajax({
 					url: "test/back-officeRest/salon/" + salon + "/add",
 					type: "POST",
-					data: {user: pseudo, message: ""},
+					data: {user: pseudo, texte: ""},
 					beforeSend: function (xhr) {
                         xhr.setRequestHeader("Accept", "application/json");
                     }
@@ -52,11 +52,11 @@
 				
 				for (var i = 0; i < data.length; i++) {
 					var message = {
-						user: data[i].user.nom,
-						message: data[i].message
+						user: data[i].user.pseudo,
+						texte: data[i].texte
 					};
 					
-					var template = message.message === "" ? templateJoined : templateMessage;
+					var template = message.texte === "" ? templateJoined : templateMessage;
 					var msg = document.createElement("p");
 					msg.innerHTML = Mustache.render(template, message);
 					$("#listeMessage").append(msg);
@@ -109,28 +109,46 @@
                     }
 				});
 			}
+
+            /*function updateMessage() {
+                $.ajax({
+                    url: "test/back-officeRest/message/" + salon + "/upLast",
+                    type: "PUT",
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("Accept", "application/json");
+                    },
+                    success: function () {
+                        $("#listeMessage").children().last().update();
+                        messageNumber--;
+                    }
+                });
+            }*/
 			
 			function onLeave() {
 				localStorage.removeItem("salon");
 			}
 
 		</script>
-		
-		<div class="chat" style="width: 500px;padding: 30px;margin: 40px auto;background: #FFF;border-radius: 10px;">
-			<h1>Chat <span>(connecté en tant que <b id="pseudo"></b> au salon <b id="salon"></b>)</span></h1>
 
+        <h1>Chatons.org</h1>
+        <hr>
 
-			<div id="listeMessage"></div>
+        <div class="chat" style="width: 500px;margin: 40px auto;background: #FFF;border-radius: 10px;text-align: center;">
+            <h4> Bonjour <b id="pseudo"></b> vous êtes sur le salon <b id="salon"></b></h4><br>
 
-			<div class="inner-wrap">
+            <div id="listeMessage"></div>
+
+			<div>
 				<input id="toSend" type="text" placeholder="Message..."/>
 				<input type="submit" onclick="sendMessage();" value="Envoyer"/>
 			</div>
+            <br>
 			
-			<div class="inner-wrap">
-				<h2>Supprimer le dernier message</h2>
+			<div>
+				<h4>Supprimer le dernier message :</h4>
 				<input type="submit" onclick="deleteMessage();" value="Supprimer"/>
 			</div>
+            <br>
 
 			<div>
 				<a onclick="onLeave();" href="bo-index.html">Quitter le salon</a>

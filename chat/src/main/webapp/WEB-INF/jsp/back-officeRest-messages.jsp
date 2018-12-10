@@ -9,20 +9,23 @@
     <title>Messages</title>
 </head>
 <body>
-<h1>Message du salon: ${salon}</h1>
 
-<c:choose>
-    <c:when test="${empty listeMessages}">
-        Le salon n'existe pas.
-    </c:when>
-    <c:otherwise>
-        <c:forEach items="${listeMessages}" var="msg">
-            ${msg} <br>
-        </c:forEach>
-    </c:otherwise>
-</c:choose>
+    <h1>Chatons.org</h1>
+    <hr>
+    <h2>Messages du salon: ${salon}</h2>
 
-<br/>
-<a href="/tpAjax/test/back-officeRest">Retour à l'accueil du back office</a>
+    <c:choose>
+        <c:when test="${empty listeMessages}">
+            Le salon n'existe pas.
+        </c:when>
+        <c:otherwise>
+            <c:forEach items="${listeMessages}" var="msg">
+                ${msg} <br>
+            </c:forEach>
+        </c:otherwise>
+    </c:choose>
+
+    <br/>
+    <a href="/tpAjax/test/back-officeRest">Retour à l'accueil du back office</a>
 </body>
 </html>
