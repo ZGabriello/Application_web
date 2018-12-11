@@ -7,12 +7,15 @@
     <title>Message</title>
 </head>
 <body>
-    <h1>Chatons.org</h1>
+    <h1 style="text-align: center;color: blue;">Chatons.org</h1>
     <hr>
-    <h2>Message du salon: ${salon}</h2>
 
-    ${message}
-    <br>
-    <a href="/tpAjax/test/back-officeRest">Retour à l'accueil du back office</a>
+    <div class="chat" style="width: 500px;margin: 40px auto;background: #FFF;border-radius: 10px;text-align: center;">
+        <h2>Message du salon: ${salon}</h2>
+
+        ${message}
+        <br>
+        <a href="/tpAjax/test/back-officeRest">Retour à l'accueil du back office</a>
+    </div>
 </body>
 </html>

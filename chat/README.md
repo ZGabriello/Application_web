@@ -69,3 +69,21 @@ Si rien n'est précisé, le contenu est renvoyé en HMTL
 
 
 Le filtre à été modifié et est à présent fonctionnel.
+
+
+
+TP5 : AJAX 
+===
+
+Le but de ce TP est de traiter des données reçues de manière asynchrone côté client.
+
+Pour cela, il nous fallait refaire une version de notre application. Nous l'avons donc ajouté dans l'accueil du chat, en-dessous de l'ancienne version. 
+De cette façon, nous pouvons utiliser les 2 versions de notre chat.
+
+Dans la nouvelle version, il ne faut plus entrer de nom de salon, il suffit de se connecter avec son pseudo. De cette manière, nous accédons à une page qui permet de voir la liste des salons disponibles, mais aussi de créer de nouveau salons.
+
+Nous pouvons également accéder à chaque salon en cliquant sur ceux-ci dans la liste des salons. Une fois connecté au salon, nous accédons à la liste des messages, et il est également possible d'en envoyer des nouveaux. 
+
+Enfin, il est possible de supprimer le dernier message d'une conversation, mais pas de le modifier. 
+
+Pour accéder à l'application il faut renseigner l'url : `localhost:8080/tpAjax`

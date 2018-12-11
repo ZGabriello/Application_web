@@ -27,9 +27,9 @@
     </head>
     <body>
 
-    <h1>Chatons.org</h1>
+    <h1 style="text-align: center;color: blue;">Chatons.org</h1>
     <hr>
-        <div class="chat" style="width: 500px;padding: 30px;margin: 40px auto;background: #FFF;border-radius: 10px;text-align: center;">
+        <div class="chat" style="width: 500px;margin: 40px auto;background: #FFF;border-radius: 10px;text-align: center;">
             
             <h1>Back office</h1>
 

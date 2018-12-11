@@ -11,41 +11,41 @@
 </head>
 <body>
 
-    <h1>Chatons.org</h1>
+    <h1 style="text-align: center;color: blue;">Chatons.org</h1>
     <hr>
-    <div class="chat" style="width: 500px;padding: 30px;margin: 40px auto;background: #FFF; text-align: center;">
+    <div class="chat" style="width: 500px;margin: 40px auto;background: #FFF; text-align: center;">
         <c:choose>
             <c:when test="${requete == 'GET'}">
 
                 <c:choose>
                     <c:when test="${not empty listeUtilisateurs}">
-                        <h1>Utilisateurs pouvant accéder au chat: </h1>
+                        <h3>Utilisateurs pouvant accéder au chat: </h3>
 
                         <c:forEach items="${listeUtilisateurs}" var="user">
                             <h3> - ${user.nom} </h3>
                         </c:forEach>
                     </c:when>
                     <c:otherwise>
-                        <h1>Aucun utilisateur n'a le droit d'accéder au chat</h1>
+                        <h3>Aucun utilisateur n'a le droit d'accéder au chat</h3>
                     </c:otherwise>
                 </c:choose>
 
-                <a href="/tpAjax/test/back-officeRest">Retour à l'accueil du back office</a>
+                <a href="/tpAjax/test/back-officeRest/">Retour à l'accueil du back office</a>
             </c:when>
             <c:when test="${requete == 'POST'}">
 
                 <c:choose>
                     <c:when test="${user == 'dejaPresentDansLaListe'}">
-                        <h1>L'utilisateur est déjà dans la liste</h1>
+                        <h3>L'utilisateur est déjà dans la liste</h3>
                     </c:when>
                     <c:otherwise>
-                        <h1>L'utilisateur ${user} a bien été ajouté à la liste</h1>
+                        <h3>L'utilisateur ${user} a bien été ajouté à la liste</h3>
                     </c:otherwise>
                 </c:choose>
 
                 <a href="/tpAjax/test/back-officeRest/users/list">Voir la liste des utilisateurs</a>
                 <br>
-                <a href="/tpAjax/test/back-officeRest">Retour à l'accueil du back office</a>
+                <a href="/tpAjax/test/back-officeRest/">Retour à l'accueil du back office</a>
                 <br>
                 <a href="Deco">Déconnexion</a>
 
